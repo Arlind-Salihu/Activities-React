@@ -14,6 +14,7 @@ namespace Persistence.Migrations
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     Emri = table.Column<string>(type: "TEXT", nullable: true),
                     Kategoria = table.Column<string>(type: "TEXT", nullable: true),
+                    Brendi = table.Column<string>(type: "TEXT", nullable: true),
                     Data = table.Column<DateTime>(type: "TEXT", nullable: false),
                     Pershkrimi = table.Column<string>(type: "TEXT", nullable: true),
                     Cmimi = table.Column<decimal>(type: "TEXT", nullable: false)

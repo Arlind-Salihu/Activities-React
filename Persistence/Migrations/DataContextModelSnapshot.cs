@@ -22,6 +22,9 @@ namespace Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Brendi")
+                        .HasColumnType("TEXT");
+
                     b.Property<decimal>("Cmimi")
                         .HasColumnType("TEXT");
 

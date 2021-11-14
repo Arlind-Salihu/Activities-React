@@ -16,43 +16,48 @@ namespace Persistence
             {
                 new Produkti
                 {
-                    Emri = "Nike Pullover",
-                    Kategoria = "Duksa",
+                    Emri = "iPhone 13 Pro Max",
+                    Kategoria = "Telefon",
+                    Brendi= "Apple",
                     Data = DateTime.Now.AddMonths(-2),
-                    Pershkrimi = "Duks per meshkuj",
-                    Cmimi = 20.00m,
+                    Pershkrimi = "iPhone 13 Pro Max 512Gb, ngjyra: E zeze",
+                    Cmimi = 580.00m,
                 },
                 new Produkti
                 {
-                    Emri = "Patika Nike",
+                    Emri = "iPhone 12 Pro Max",
                     Kategoria = "Patika",
+                    Brendi= "Apple",
                     Data = DateTime.Now.AddMonths(-2),
-                    Pershkrimi = "Patika Nike per meshkuj",
-                    Cmimi = 45.00m,
+                    Pershkrimi = "iPhone 12 Pro Max 256Gb, ngjyra: E bardhe",
+                    Cmimi = 865.00m,
                 },
                 new Produkti
                 {
-                    Emri = "Syze RayBan",
-                    Kategoria = "Syze",
+                    Emri = "Apple Watch Series 7",
+                    Kategoria = "Ora",
+                    Brendi= "Apple",
                     Data = DateTime.Now.AddMonths(-2),
-                    Pershkrimi = "Syze dielli RayBan per meshkuj",
-                    Cmimi = 70.00m,
+                    Pershkrimi = "Ore Smart Apple Watch Series 7, ngjyra: E hirit",
+                    Cmimi = 150.00m,
                 },
                 new Produkti
                 {
-                    Emri = "Kemishe Lacoste",
-                    Kategoria = "Kemisha",
+                    Emri = "Samsung Galaxy S21 Ultra",
+                    Kategoria = "Telefon",
+                    Brendi= "Samsung",
                     Data = DateTime.Now.AddMonths(-2),
-                    Pershkrimi = "Kemishe Lacoste per Meshkuj",
-                    Cmimi = 17.50m,
+                    Pershkrimi = "Samsung Galaxy S21 Plus 256Gb, ngjyra: E zeze",
+                    Cmimi = 970.00m,
                 },
                 new Produkti
                 {
-                    Emri = "Maice Adidas",
-                    Kategoria = "Maice",
+                    Emri = "Samsung Galaxy Note 10",
+                    Kategoria = "Telefon",
+                    Brendi= "Samsung",
                     Data = DateTime.Now.AddMonths(-2),
-                    Pershkrimi = "Maice Adidas per femije",
-                    Cmimi = 10.00m,
+                    Pershkrimi = "Samsung Galaxy Note 10 256Gb, ngjyra: E bardhe",
+                    Cmimi = 1000.00m,
                 }
                
             };
