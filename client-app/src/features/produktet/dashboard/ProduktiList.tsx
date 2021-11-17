@@ -1,20 +1,12 @@
+import { observer } from "mobx-react-lite";
 import React, { SyntheticEvent, useState } from "react";
 import { Button, Item, Label, Segment } from "semantic-ui-react";
-import { Produkti } from "../../../app/models/produkti";
+import { useStore } from "../../../app/stores/store";
 
-interface Props {
-  produktet: Produkti[];
-  selectProdukti: (id: string) => void;
-  deleteProdukti: (id: string) => void;
-  submitting: boolean;
-}
+export default observer(function ProduktiList() {
 
-export default function ProduktiList({
-  produktet,
-  selectProdukti,
-  deleteProdukti,
-  submitting,
-}: Props) {
+  const {produktiStore} = useStore();
+  const {deleteProdukti, produktetByDate, loading} = produktiStore;
   const [target, setTarget] = useState("");
 
   function handleProduktiDelete(
@@ -24,10 +16,11 @@ export default function ProduktiList({
     setTarget(e.currentTarget.name);
     deleteProdukti(id);
   }
+
   return (
     <Segment>
       <Item.Group divided>
-        {produktet.map((produkti) => (
+        {produktetByDate.map((produkti) => (
           <Item key={produkti.id}>
             <Item.Content>
               <Item.Header as="a">{produkti.emri}</Item.Header>
@@ -40,14 +33,14 @@ export default function ProduktiList({
               <Item.Extra>
                 <Button
                   name={produkti.id}
-                  loading={submitting && target === produkti.id}
+                  loading={loading && target === produkti.id}
                   onClick={(e) => handleProduktiDelete(e, produkti.id)}
                   floated="right"
                   content="Delete"
                   color="red"
                 />
                 <Button
-                  onClick={() => selectProdukti(produkti.id)}
+                  onClick={() => produktiStore.selectProdukti(produkti.id)}
                   floated="right"
                   content="View"
                   color="instagram"
@@ -60,4 +53,4 @@ export default function ProduktiList({
       </Item.Group>
     </Segment>
   );
-}
+})

@@ -1,34 +1,27 @@
+import { observer } from "mobx-react-lite";
 import React, { ChangeEvent, useState } from "react";
 import { Button, Form, Segment } from "semantic-ui-react";
-import { Produkti } from "../../../app/models/produkti";
+import { useStore } from "../../../app/stores/store";
 
-interface Props {
-  produkti: Produkti | undefined;
-  closeForm: () => void;
-  createOrEdit: (produkti: Produkti) => void;
-  submitting: boolean;
-}
+export default observer(function ProduktiForm() {
 
-export default function ProduktiForm({
-  produkti: selectedProdukti,
-  closeForm,
-  createOrEdit,
-  submitting,
-}: Props) {
+  const {produktiStore} = useStore();
+  const {selectedProdukti, closeForm, createProdukti, updateProdukti, loading} = produktiStore;
+
   const initialState = selectedProdukti ?? {
-    id: "",
-    emri: "",
-    kategoria: "",
-    brendi: "",
-    data: "",
-    pershkrimi: "",
+    id: '',
+    emri: '',
+    kategoria: '',
+    brendi: '',
+    data: '',
+    pershkrimi: '',
     cmimi: 0,
   };
 
   const [produkti, setProdukti] = useState(initialState);
 
   function handleSubmit() {
-    createOrEdit(produkti);
+    produkti.id ? updateProdukti(produkti) : createProdukti(produkti);
   }
 
   function handleInputChange(
@@ -79,7 +72,7 @@ export default function ProduktiForm({
           onChange={handleInputChange}
         />
         <Button
-          loading={submitting}
+          loading={loading}
           floated="right"
           positive
           type="submit"
@@ -100,4 +93,4 @@ export default function ProduktiForm({
       </Form>
     </Segment>
   );
-}
+})

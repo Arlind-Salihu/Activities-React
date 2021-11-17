@@ -1,18 +1,14 @@
 import React from "react";
 import { Button, Card, Image } from "semantic-ui-react";
-import { Produkti } from "../../../app/models/produkti";
+import LoadingComponent from "../../../app/layout/LoadingComponent";
+import { useStore } from "../../../app/stores/store";
 
-interface Props {
-  produkti: Produkti;
-  cancleSelectProdukti: () => void;
-  openForm: (id: string) => void;
-}
+export default function ProduktiDetails() {
 
-export default function ProduktiDetails({
-  produkti,
-  cancleSelectProdukti,
-  openForm,
-}: Props) {
+  const {produktiStore} = useStore();
+  const {selectedProdukti: produkti, openForm, cancelSelectedProdukti} = produktiStore;
+
+  if (!produkti) return <LoadingComponent content={"Loadingggg..."}/>;
   return (
     <Card fluid>
       <Image src={`/assets/categoryImages/${produkti.kategoria}.png`} />
@@ -32,7 +28,7 @@ export default function ProduktiDetails({
             content="Edit"
           />
           <Button
-            onClick={cancleSelectProdukti}
+            onClick={cancelSelectedProdukti}
             basic
             color="red"
             content="Cancel"
