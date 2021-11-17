@@ -15,6 +15,7 @@ interface Props {
   closeForm: () => void;
   createOrEdit: (produkti: Produkti) => void;
   deleteProdukti: (id: string) => void;
+  submitting: boolean;
 }
 
 export default function ProduktiDashboard({
@@ -26,22 +27,35 @@ export default function ProduktiDashboard({
   openForm,
   closeForm,
   createOrEdit,
-  deleteProdukti
+  deleteProdukti,
+  submitting,
 }: Props) {
   return (
     <Grid>
       <Grid.Column width="10">
-        <ProduktiList produktet={produktet} selectProdukti={selectProdukti} deleteProdukti={deleteProdukti}/>
+        <ProduktiList
+          produktet={produktet}
+          selectProdukti={selectProdukti}
+          deleteProdukti={deleteProdukti}
+          submitting={submitting}
+        />
       </Grid.Column>
       <Grid.Column width="6">
-        {selectedProdukti && !editMode &&
+        {selectedProdukti && !editMode && (
           <ProduktiDetails
             produkti={selectedProdukti}
             cancleSelectProdukti={cancleSelectProdukti}
             openForm={openForm}
-          />}
-        {editMode &&
-        <ProduktiForm closeForm={closeForm} produkti={selectedProdukti} createOrEdit={createOrEdit}/>}
+          />
+        )}
+        {editMode && (
+          <ProduktiForm
+            closeForm={closeForm}
+            produkti={selectedProdukti}
+            createOrEdit={createOrEdit}
+            submitting={submitting}
+          />
+        )}
       </Grid.Column>
     </Grid>
   );
