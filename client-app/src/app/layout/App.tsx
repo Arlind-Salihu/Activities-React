@@ -1,28 +1,35 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Container } from "semantic-ui-react";
 import NavBar from "./NavBar";
 import ProduktiDashboard from "../../features/produktet/dashboard/ProduktiDashboard";
-import LoadingComponent from "./LoadingComponent";
-import { useStore } from "../stores/store";
 import { observer } from "mobx-react-lite";
+import { Route, useLocation } from "react-router-dom";
+import HomePage from "../../features/home/HomePage";
+import ProduktiForm from "../../features/produktet/form/ProduktiForm";
+import ProduktiDetails from "../../features/produktet/details/ProduktiDetails";
 
 function App() {
-  const { produktiStore } = useStore();
-
-  useEffect(() => {
-    produktiStore.loadProduktet();
-  }, [produktiStore]);
-
-
-  if (produktiStore.loadingInitial)
-    return <LoadingComponent content="Loading app" />;
+  const location = useLocation();
 
   return (
     <>
-      <NavBar />
+      <Route exact path="/" component={HomePage} />
+      
+      <Route path={'/(.+)'} render={() => (
+        <>
+         <NavBar />
       <Container style={{ marginTop: "7em" }}>
-        <ProduktiDashboard/>
+        <Route exact path="/produktet" component={ProduktiDashboard} />
+        <Route path="/produktet/:id" component={ProduktiDetails} />
+        <Route
+          key={location.key}
+          path={["/createProdukti", "/manage/:id"]}
+          component={ProduktiForm}
+        />
       </Container>
+        </>
+      )}
+      />
     </>
   );
 }

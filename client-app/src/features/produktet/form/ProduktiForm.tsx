@@ -1,27 +1,52 @@
 import { observer } from "mobx-react-lite";
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
+import { useHistory, useParams } from "react-router";
 import { Button, Form, Segment } from "semantic-ui-react";
+import LoadingComponent from "../../../app/layout/LoadingComponent";
 import { useStore } from "../../../app/stores/store";
+import { v4 as uuid } from "uuid";
+import { Link } from "react-router-dom";
 
 export default observer(function ProduktiForm() {
+  const history = useHistory();
+  const { produktiStore } = useStore();
+  const {
+    createProdukti,
+    updateProdukti,
+    loading,
+    loadProdukti,
+    loadingInitial,
+  } = produktiStore;
+  const { id } = useParams<{ id: string }>();
 
-  const {produktiStore} = useStore();
-  const {selectedProdukti, closeForm, createProdukti, updateProdukti, loading} = produktiStore;
-
-  const initialState = selectedProdukti ?? {
-    id: '',
-    emri: '',
-    kategoria: '',
-    brendi: '',
-    data: '',
-    pershkrimi: '',
+  const [produkti, setProdukti] = useState({
+    id: "",
+    emri: "",
+    kategoria: "",
+    brendi: "",
+    data: "",
+    pershkrimi: "",
     cmimi: 0,
-  };
+  });
 
-  const [produkti, setProdukti] = useState(initialState);
+  useEffect(() => {
+    if (id) loadProdukti(id).then((produkti) => setProdukti(produkti!));
+  }, [id, loadProdukti]);
 
   function handleSubmit() {
-    produkti.id ? updateProdukti(produkti) : createProdukti(produkti);
+    if (produkti.id.length === 0) {
+      let newProdukti = {
+        ...produkti,
+        id: uuid(),
+      };
+      createProdukti(newProdukti).then(() =>
+        history.push(`/produktet/${newProdukti.id}`)
+      );
+    } else {
+      updateProdukti(produkti).then(() =>
+        history.push(`/produktet/${produkti.id}`)
+      );
+    }
   }
 
   function handleInputChange(
@@ -30,6 +55,11 @@ export default observer(function ProduktiForm() {
     const { name, value } = event.target;
     setProdukti({ ...produkti, [name]: value });
   }
+
+  if (loadingInitial)
+    return (
+      <LoadingComponent content={"Te dhenat e produktit jane duke u hapur!"} />
+    );
 
   return (
     <Segment clearing>
@@ -82,7 +112,8 @@ export default observer(function ProduktiForm() {
           onChange={handleInputChange}
         />
         <Button
-          onClick={closeForm}
+          as={Link}
+          to="/produktet"
           floated="right"
           type="button"
           content="Cancel"
@@ -93,4 +124,4 @@ export default observer(function ProduktiForm() {
       </Form>
     </Segment>
   );
-})
+});

@@ -1,16 +1,30 @@
-import React from "react";
+import { observer } from "mobx-react-lite";
+import React, { useEffect } from "react";
+import { useParams } from "react-router";
+import { Link } from "react-router-dom";
 import { Button, Card, Image } from "semantic-ui-react";
 import LoadingComponent from "../../../app/layout/LoadingComponent";
 import { useStore } from "../../../app/stores/store";
 
-export default function ProduktiDetails() {
+export default observer(function ProduktiDetails() {
+  const { produktiStore } = useStore();
+  const {
+    selectedProdukti: produkti,
+    loadProdukti,
+    loadingInitial,
+  } = produktiStore;
+  const { id } = useParams<{ id: string }>();
 
-  const {produktiStore} = useStore();
-  const {selectedProdukti: produkti, openForm, cancelSelectedProdukti} = produktiStore;
+  useEffect(() => {
+    if (id) loadProdukti(id);
+  }, [id, loadProdukti]);
 
-  if (!produkti) return <LoadingComponent content={"Loadingggg..."}/>;
+  if (loadingInitial || !produkti)
+    return (
+      <LoadingComponent content="Te dhenat e produktit jane duke u hapur!" />
+    );
   return (
-    <Card fluid>
+    <Card style={{ marginLeft: "33%", width: "35%" }}>
       <Image src={`/assets/categoryImages/${produkti.kategoria}.png`} />
       <Card.Content>
         <Card.Header>{produkti.emri}</Card.Header>
@@ -22,13 +36,15 @@ export default function ProduktiDetails() {
       <Card.Content extra>
         <Button.Group widths="2">
           <Button
-            onClick={() => openForm(produkti.id)}
+            as={Link}
+            to={`/manage/${produkti.id}`}
             basic
             color="blue"
             content="Edit"
           />
           <Button
-            onClick={cancelSelectedProdukti}
+            as={Link}
+            to={`/produktet`}
             basic
             color="red"
             content="Cancel"
@@ -37,4 +53,4 @@ export default function ProduktiDetails() {
       </Card.Content>
     </Card>
   );
-}
+});

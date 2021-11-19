@@ -1,5 +1,6 @@
 import { observer } from "mobx-react-lite";
 import React, { SyntheticEvent, useState } from "react";
+import { Link } from "react-router-dom";
 import { Button, Item, Label, Segment } from "semantic-ui-react";
 import { useStore } from "../../../app/stores/store";
 
@@ -17,6 +18,8 @@ export default observer(function ProduktiList() {
     deleteProdukti(id);
   }
 
+
+  //style={{marginLeft:"30%", width:"100%"}}
   return (
     <Segment>
       <Item.Group divided>
@@ -39,8 +42,9 @@ export default observer(function ProduktiList() {
                   content="Delete"
                   color="red"
                 />
-                <Button
-                  onClick={() => produktiStore.selectProdukti(produkti.id)}
+                <Button 
+                  as={Link}
+                  to={`/produktet/${produkti.id}`}
                   floated="right"
                   content="View"
                   color="instagram"

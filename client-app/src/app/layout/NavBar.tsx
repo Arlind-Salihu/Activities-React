@@ -1,16 +1,14 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import { Button, Container, Menu } from "semantic-ui-react";
-import { useStore } from "../stores/store";
 
 
 export default function NavBar() {
 
-  const {produktiStore} = useStore();
-
   return (
     <Menu inverted fixed="top">
       <Container>
-        <Menu.Item header>
+        <Menu.Item as={NavLink} to='/' exact header>
           <img
             src="/assets/logo.png"
             alt="logo"
@@ -18,11 +16,11 @@ export default function NavBar() {
           />
           Tech E-Commerce
         </Menu.Item>
-        <Menu.Item name="Produktet" />
-        <Menu.Item>
-          <Button onClick={() => produktiStore.openForm()} positive content="Krijo Produktin" />
-        </Menu.Item>
       </Container>
+      <Menu.Item as={NavLink} to='/produktet' name="Produktet" />
+        <Menu.Item>
+          <Button as={NavLink} to='/createProdukti' positive content="Krijo Produktin" />
+        </Menu.Item>
     </Menu>
   );
 }
