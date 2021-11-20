@@ -1,60 +1,26 @@
 import { observer } from "mobx-react-lite";
-import React, { SyntheticEvent, useState } from "react";
-import { Link } from "react-router-dom";
-import { Button, Item, Label, Segment } from "semantic-ui-react";
+import React, { Fragment } from "react";
+import { Header } from "semantic-ui-react";
 import { useStore } from "../../../app/stores/store";
+import ProduktiListItem from "./ProduktiListItem";
 
 export default observer(function ProduktiList() {
-
-  const {produktiStore} = useStore();
-  const {deleteProdukti, produktetByDate, loading} = produktiStore;
-  const [target, setTarget] = useState("");
-
-  function handleProduktiDelete(
-    e: SyntheticEvent<HTMLButtonElement>,
-    id: string
-  ) {
-    setTarget(e.currentTarget.name);
-    deleteProdukti(id);
-  }
-
+  const { produktiStore } = useStore();
+  const { groupedProduktet } = produktiStore;
 
   //style={{marginLeft:"30%", width:"100%"}}
   return (
-    <Segment>
-      <Item.Group divided>
-        {produktetByDate.map((produkti) => (
-          <Item key={produkti.id}>
-            <Item.Content>
-              <Item.Header as="a">{produkti.emri}</Item.Header>
-              <Item.Meta>{produkti.data}</Item.Meta>
-              <Item.Description>
-                <div>{produkti.pershkrimi}</div>
-                <div>{produkti.brendi}</div>
-                <div>{produkti.cmimi + "€"}</div>
-              </Item.Description>
-              <Item.Extra>
-                <Button
-                  name={produkti.id}
-                  loading={loading && target === produkti.id}
-                  onClick={(e) => handleProduktiDelete(e, produkti.id)}
-                  floated="right"
-                  content="Delete"
-                  color="red"
-                />
-                <Button 
-                  as={Link}
-                  to={`/produktet/${produkti.id}`}
-                  floated="right"
-                  content="View"
-                  color="instagram"
-                />
-                <Label basic content={produkti.kategoria} />
-              </Item.Extra>
-            </Item.Content>
-          </Item>
-        ))}
-      </Item.Group>
-    </Segment>
+    <>
+      {groupedProduktet.map(([group, produktet]) => (
+        <Fragment key={group}>
+          <Header sub color="teal">
+            {group}
+          </Header>
+          {produktet.map((produkti) => (
+            <ProduktiListItem key={produkti.id} produkti={produkti} />
+          ))}
+        </Fragment>
+      ))}
+    </>
   );
-})
+});

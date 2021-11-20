@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { Grid } from "semantic-ui-react";
 import LoadingComponent from "../../../app/layout/LoadingComponent";
 import { useStore } from "../../../app/stores/store";
+import ProduktiFilters from "./ProduktiFilters";
 import ProduktiList from "./ProduktiList";
 
 export default observer(function ProduktiDashboard() {
@@ -23,7 +24,7 @@ export default observer(function ProduktiDashboard() {
         <ProduktiList/>
       </Grid.Column>
       <Grid.Column width="6">
-        <h2>Produktet Filters</h2>
+        <ProduktiFilters/>
       </Grid.Column>
     </Grid>
   );

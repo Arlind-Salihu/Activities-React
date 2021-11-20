@@ -17,6 +17,16 @@ export default class ProduktiStore {
         return Array.from(this.produktiRegistry.values()).sort((a, b) => Date.parse(a.data) - Date.parse(b.data));
     }
 
+    get groupedProduktet(){
+        return Object.entries(
+            this.produktetByDate.reduce((produktet, produkti) =>{
+                const data = produkti.data;
+                produktet[data] = produktet[data] ? [...produktet[data], produkti] : [produkti]
+                return produktet;
+            }, {} as {[key: string]: Produkti[]})
+        )
+    }
+
     loadProduktet = async () => {
         this.loadingInitial = true;
         try {

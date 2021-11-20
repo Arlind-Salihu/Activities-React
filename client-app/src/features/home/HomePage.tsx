@@ -1,12 +1,19 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Container } from 'semantic-ui-react'
+import { Container, Header, Segment, Image, Button} from 'semantic-ui-react'
 
 export default function HomePage () {
     return (
-        <Container style={{marginTop: '7e'}}>
-            <h1>Home Page</h1>
-            <h3>Kliko per te pare <Link to={'/produktet'}>Produktet</Link></h3>
-        </Container>
+       <Segment inverted textAlign='center' vertical className="masthead">
+           <Container text>
+               <Header as='h1' inverted>
+                   <Image size="massive" src='/assets/logo.png' alt="logo" style={{marginBottom: 12}}/>
+                   Tech E-Commerce
+               </Header>
+               <Header as='h2' inverted content="Mirësevini në Web-faqen tonë!">
+                   <Button as={Link} to="/produktet" size='huge' inverted>Identifikohu ne Web-faqen tone!</Button>
+               </Header>
+           </Container>
+       </Segment>
     )
 }
