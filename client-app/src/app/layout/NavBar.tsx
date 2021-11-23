@@ -18,6 +18,7 @@ export default function NavBar() {
         </Menu.Item>
       </Container>
       <Menu.Item as={NavLink} to='/produktet' name="Produktet" />
+      <Menu.Item as={NavLink} to='/errors' name="Errors" />
         <Menu.Item>
           <Button as={NavLink} to='/createProdukti' positive content="Krijo Produktin" />
         </Menu.Item>

@@ -17,25 +17,25 @@ namespace Persistence
                 new Produkti
                 {
                     Emri = "iPhone 13 Pro Max",
-                    Kategoria = "Telefon",
+                    Kategoria = "iPhone 13 Pro Max Sierra Blue",
                     Brendi= "Apple",
                     Data = DateTime.Now.AddMonths(-2),
-                    Pershkrimi = "iPhone 13 Pro Max 512Gb, ngjyra: E zeze",
+                    Pershkrimi = "iPhone 13 Pro Max 512GB, ngjyra: Sierra Blue",
                     Cmimi = 580.00m,
                 },
                 new Produkti
                 {
-                    Emri = "iPhone 12 Pro Max",
-                    Kategoria = "Patika",
+                    Emri = "iPhone X",
+                    Kategoria = "iPhone X White",
                     Brendi= "Apple",
                     Data = DateTime.Now.AddMonths(-2),
-                    Pershkrimi = "iPhone 12 Pro Max 256Gb, ngjyra: E bardhe",
+                    Pershkrimi = "iPhone X 64GB, ngjyra: E bardhe",
                     Cmimi = 865.00m,
                 },
                 new Produkti
                 {
                     Emri = "Apple Watch Series 7",
-                    Kategoria = "Ora",
+                    Kategoria = "Apple Watch Series 7",
                     Brendi= "Apple",
                     Data = DateTime.Now.AddMonths(-2),
                     Pershkrimi = "Ore Smart Apple Watch Series 7, ngjyra: E hirit",
@@ -44,20 +44,20 @@ namespace Persistence
                 new Produkti
                 {
                     Emri = "Samsung Galaxy S21 Ultra",
-                    Kategoria = "Telefon",
+                    Kategoria = "Samsung Galaxy S21 Ultra Black",
                     Brendi= "Samsung",
                     Data = DateTime.Now.AddMonths(-2),
-                    Pershkrimi = "Samsung Galaxy S21 Plus 256Gb, ngjyra: E zeze",
+                    Pershkrimi = "Samsung Galaxy S21 Plus 256GB, ngjyra: E zeze",
                     Cmimi = 970.00m,
                 },
                 new Produkti
                 {
-                    Emri = "Samsung Galaxy Note 10",
-                    Kategoria = "Telefon",
-                    Brendi= "Samsung",
+                    Emri = "iPhone 11",
+                    Kategoria = "iPhone 11 Red",
+                    Brendi= "Apple",
                     Data = DateTime.Now.AddMonths(-2),
-                    Pershkrimi = "Samsung Galaxy Note 10 256Gb, ngjyra: E bardhe",
-                    Cmimi = 1000.00m,
+                    Pershkrimi = "iPhone 11 128GB, ngjyra: E kuqe",
+                    Cmimi = 580.00m,
                 }
                
             };
