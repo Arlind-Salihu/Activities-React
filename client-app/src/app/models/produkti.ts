@@ -3,7 +3,7 @@ export interface Produkti {
     emri: string;
     kategoria: string;
     brendi: string;
-    data: string;
+    data: Date | null;
     pershkrimi: string;
-    cmimi: number;
+    cmimi: number | null;
 }

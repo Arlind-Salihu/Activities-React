@@ -1,5 +1,7 @@
+import { format } from "date-fns";
 import { observer } from "mobx-react-lite";
 import React from "react";
+import { Link } from "react-router-dom";
 import { Button, Header, Item, Segment, Image } from "semantic-ui-react";
 import { Produkti } from "../../../app/models/produkti";
 
@@ -38,7 +40,7 @@ export default observer(function ProduktiDetailedHeader({ produkti }: Props) {
                   content={produkti.emri}
                   style={{ color: "white" }}
                 />
-                <p>{produkti.data}</p>
+                <p>{format(produkti.data!, 'dd MMM yyyy')}</p>
                 <p>
                   Hosted by <strong>Lindi</strong>
                 </p>
@@ -50,7 +52,7 @@ export default observer(function ProduktiDetailedHeader({ produkti }: Props) {
       <Segment clearing attached="bottom">
         <Button color="teal">Shiko Produktin</Button>
         <Button>Injoro Produktin</Button>
-        <Button color="orange" floated="right">
+        <Button as={Link} to={`/manage/${produkti.id}`} color="orange" floated="right">
           Menaxho Produktin
         </Button>
       </Segment>

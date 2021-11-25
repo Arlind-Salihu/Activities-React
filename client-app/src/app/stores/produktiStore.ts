@@ -1,3 +1,4 @@
+import { format } from "date-fns";
 import { makeAutoObservable, runInAction } from "mobx"
 import agent from "../api/agent";
 import { Produkti } from "../models/produkti";
@@ -7,20 +8,20 @@ export default class ProduktiStore {
     selectedProdukti: Produkti | undefined = undefined;
     editMode = false;
     loading = false;
-    loadingInitial = true;
+    loadingInitial = false;
 
     constructor() {
         makeAutoObservable(this)
     }
 
     get produktetByDate() {
-        return Array.from(this.produktiRegistry.values()).sort((a, b) => Date.parse(a.data) - Date.parse(b.data));
+        return Array.from(this.produktiRegistry.values()).sort((a, b) => a.data!.getTime() - b.data!.getTime());
     }
 
     get groupedProduktet(){
         return Object.entries(
             this.produktetByDate.reduce((produktet, produkti) =>{
-                const data = produkti.data;
+                const data = format(produkti.data!, 'dd MMM yyy');
                 produktet[data] = produktet[data] ? [...produktet[data], produkti] : [produkti]
                 return produktet;
             }, {} as {[key: string]: Produkti[]})
@@ -65,7 +66,7 @@ export default class ProduktiStore {
     }
 
     private setProdukti = (produkti: Produkti) => {
-        produkti.data = produkti.data.split("T")[0];
+        produkti.data = new Date(produkti.data!);
         this.produktiRegistry.set(produkti.id, produkti);
     }
 

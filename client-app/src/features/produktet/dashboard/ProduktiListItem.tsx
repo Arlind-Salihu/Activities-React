@@ -1,3 +1,4 @@
+import { format } from "date-fns";
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button, Icon, Item, Segment } from "semantic-ui-react";
@@ -27,7 +28,7 @@ export default function ProduktiListItem({ produkti }: Props) {
       <Segment>
         <span>
           <Icon name="clock" />
-          {produkti.data} <br />
+          {format(produkti.data!, 'dd, MMM yyyy h:mm aa')} <br />
           <Icon name="shopping basket" />
           {produkti.kategoria}
         </span>

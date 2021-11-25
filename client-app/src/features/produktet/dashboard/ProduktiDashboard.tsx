@@ -17,7 +17,7 @@ export default observer(function ProduktiDashboard() {
 
 
   if (produktiStore.loadingInitial)
-    return <LoadingComponent content="Te dhenat jane duke u hapur!"/>;
+    return <LoadingComponent content={"Te dhenat jane duke u hapur!"}/>;
   return (
     <Grid>
       <Grid.Column width="10">

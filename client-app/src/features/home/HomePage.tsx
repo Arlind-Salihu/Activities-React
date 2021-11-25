@@ -10,7 +10,7 @@ export default function HomePage () {
                    <Image size="massive" src='/assets/logo.png' alt="logo" style={{marginBottom: 12}}/>
                    Tech E-Commerce
                </Header>
-               <Header as='h2' inverted content="Mirësevini në Web-faqen tonë!">
+               <Header as='h2' inverted >
                    <Button as={Link} to="/produktet" size='huge' inverted>Identifikohu ne Web-faqen tone!</Button>
                </Header>
            </Container>

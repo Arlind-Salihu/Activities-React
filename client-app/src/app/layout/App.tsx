@@ -27,7 +27,7 @@ function App() {
         <Switch>
         <Route exact path="/produktet" component={ProduktiDashboard} />
         <Route path="/produktet/:id" component={ProduktiDetails} />
-        <Route key={location.key} path={["/createProdukti", "/manage/:id"]} component={ProduktiForm}/>
+        <Route key={location.key} path={['/createProdukti', '/manage/:id']} component={ProduktiForm}/>
 
         <Route path='/errors' component={TestErrors}/>
         <Route path='/server-error' component={ServerError}/>

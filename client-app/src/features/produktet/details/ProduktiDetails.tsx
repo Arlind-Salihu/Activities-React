@@ -24,7 +24,7 @@ export default observer(function ProduktiDetails() {
 
   if (loadingInitial || !produkti)
     return (
-      <LoadingComponent content="Te dhenat e produktit jane duke u hapur!" />
+      <LoadingComponent content={"Te dhenat e produktit jane duke u hapur!"}/>
     );
   return (
     <Grid>
