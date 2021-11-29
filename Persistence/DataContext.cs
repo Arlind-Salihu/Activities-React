@@ -10,5 +10,6 @@ namespace Persistence
         }
         public DbSet<Telefoni> Telefonat { get; set; }
         public DbSet<Laptopi> Laptopat { get; set; }
+        public DbSet<Ora> Orat { get; set; }
     }
 }

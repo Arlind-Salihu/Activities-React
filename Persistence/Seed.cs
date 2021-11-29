@@ -93,13 +93,48 @@ namespace Persistence
                     Kategoria = "HP Pavilion Laptop - 15z-eh100, Silver",
                     Brendi= "HP",
                     Data = DateTime.Now.AddMonths(-2),
-                    Pershkrimi = "Ore Smart Apple Watch Series 7, ngjyra: E hirit, Sistemi Operativ: Windows 11 Home, Memoria: 16 GB DDR4-3200 SDRAM (2 x 8 GB), Storage: 512 GB PCIe® NVMe™ M.2 SSD, Processor: AMD Ryzen™ 7 5700U (up to 4.3 GHz, 8 MB L3 cache, 8 cores, 16 thread) + AMD Radeon™ Graphics, Touch: Fingerprint reader not available, Kamera: HP Wide Vision 720p HD camera with integrated dual array digital microphones",
+                    Pershkrimi = "HP Pavilion Laptop, ngjyra: Silver, Sistemi Operativ: Windows 11 Home, Memoria: 16 GB DDR4-3200 SDRAM (2 x 8 GB), Storage: 512 GB PCIe® NVMe™ M.2 SSD, Processor: AMD Ryzen™ 7 5700U (up to 4.3 GHz, 8 MB L3 cache, 8 cores, 16 thread) + AMD Radeon™ Graphics, Touch: Fingerprint reader not available, Kamera: HP Wide Vision 720p HD camera with integrated dual array digital microphones",
+                    Cmimi = 430.00m,
+                }
+
+            };
+            await context.Laptopat.AddRangeAsync(laptopat);
+            await context.SaveChangesAsync();
+
+            if (context.Orat.Any()) return;
+            var orat = new List<Ora>
+            {
+                new Ora
+                {
+                    Emri = "Apple Watch",
+                    Kategoria = "Apple Watch Series 5",
+                    Brendi= "Apple",
+                    Data = DateTime.Now.AddMonths(-2),
+                    Pershkrimi = "Ore Smart Apple Watch Series 5, ngjyra: Pink",
+                    Cmimi = 999.00m
+                },
+                new Ora
+                {
+                    Emri = "Apple Watch",
+                    Kategoria = "Apple Watch Series 6",
+                    Brendi= "Apple",
+                    Data = DateTime.Now.AddMonths(-2),
+                    Pershkrimi = "Ore Smart Apple Watch Series 5, ngjyra: E kalter",
+                    Cmimi = 865.00m,
+                },
+                new Ora
+                {
+                    Emri = "Apple Watch",
+                    Kategoria = "Apple Watch Series 7",
+                    Brendi= "Apple",
+                    Data = DateTime.Now.AddMonths(-2),
+                    Pershkrimi = "Ore Smart Apple Watch Series 7, ngjyra: E hirit",
                     Cmimi = 430.00m,
                 }
 
             };
 
-            await context.Laptopat.AddRangeAsync(laptopat);
+            await context.Orat.AddRangeAsync(orat);
             await context.SaveChangesAsync();
         }
     }

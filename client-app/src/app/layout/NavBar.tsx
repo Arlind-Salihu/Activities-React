@@ -7,19 +7,16 @@ export default function NavBar() {
     <Menu inverted fixed="top">
       <Container>
         <Menu.Item as={NavLink} to="/" exact header>
-          <img
-            src="/assets/logo.png"
-            alt="logo"
-            style={{ marginRight: "10px" }}
-          />
+          <img src="/assets/logo.png" alt="logo" style={{ marginRight: "10px" }}/>
           Tech E-Commerce
         </Menu.Item>
       </Container>
-      <Menu.Item exact as={NavLink} to="/telefonat" name="Telefonat" />
 
+      <Menu.Item as={NavLink} to="/telefonat" name="Telefonat" />
       <Menu.Item as={NavLink} to="/laptopat" name="Laptopat" />
+      <Menu.Item as={NavLink} to="/orat" name="Orat" />
 
-      <Dropdown item style={{backgroundColor: "#3D83A9", color: "black", fontSize: "16px"}} text="Krijo Produktin">
+      <Dropdown item style={{backgroundColor: "#3D83A9", color: "white", fontSize: "16px"}} text="Krijo Produktin">
         <Dropdown.Menu style={{backgroundColor: "#AEB6BF"}}>
           <Dropdown.Item>
             <Button
@@ -35,6 +32,14 @@ export default function NavBar() {
               to="/createLaptopi"
               style={{backgroundColor: "#AEB6BF"}}
               content="Krijo Laptopin"
+            />
+          </Dropdown.Item>
+          <Dropdown.Item>
+            <Button
+              as={NavLink}
+              to="/createOra"
+              style={{backgroundColor: "#AEB6BF"}}
+              content="Krijo Oren"
             />
           </Dropdown.Item>
         </Dropdown.Menu>

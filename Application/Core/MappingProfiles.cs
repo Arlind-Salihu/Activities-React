@@ -9,6 +9,7 @@ namespace Application.Core
         {
             CreateMap<Telefoni , Telefoni>();
             CreateMap<Laptopi, Laptopi>();
+            CreateMap<Ora, Ora>();
         }
     }
 }

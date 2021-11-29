@@ -3,6 +3,7 @@ import { toast } from "react-toastify";
 import { history } from "../..";
 import { Telefoni } from "../models/telefoni";
 import { Laptopi } from "../models/laptopi";
+import { Ora } from "../models/ora";
 import { store } from "../stores/store";
 
 const sleep = (delay: number) => {
@@ -75,8 +76,16 @@ const Laptopat = {
     delete: (id: string) => axios.delete<void>(`/laptopat/${id}`)
 }
 
+const Orat = {
+    list: () => requests.get<Ora[]>('/orat'),
+    details: (id: string) => requests.get<Ora>(`/orat/${id}`),
+    create: (ora: Ora) => axios.post<void>('/orat', ora),
+    update: (ora: Ora) => axios.put<void>(`/orat/${ora.id}`, ora),
+    delete: (id: string) => axios.delete<void>(`/orat/${id}`)
+}
+
 const agent = {
-    Telefonat, Laptopat
+    Telefonat, Laptopat, Orat
 }
 
 export default agent;

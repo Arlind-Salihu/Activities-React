@@ -25,6 +25,23 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Orat",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Emri = table.Column<string>(type: "TEXT", nullable: true),
+                    Kategoria = table.Column<string>(type: "TEXT", nullable: true),
+                    Brendi = table.Column<string>(type: "TEXT", nullable: true),
+                    Data = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Pershkrimi = table.Column<string>(type: "TEXT", nullable: true),
+                    Cmimi = table.Column<decimal>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Orat", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Telefonat",
                 columns: table => new
                 {
@@ -46,6 +63,9 @@ namespace Persistence.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Laptopat");
+
+            migrationBuilder.DropTable(
+                name: "Orat");
 
             migrationBuilder.DropTable(
                 name: "Telefonat");

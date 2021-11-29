@@ -30,7 +30,9 @@ export default function TelefoniListItem({ telefoni }: Props) {
           <Icon name="clock" />
           {format(telefoni.data!, 'dd, MMM yyyy h:mm aa')} <br />
           <Icon name="shopping basket" />
-          {telefoni.kategoria}
+          {telefoni.kategoria} <br />
+          <Icon name="euro sign" />
+          {telefoni.cmimi}
         </span>
       </Segment>
         <Segment secondary>

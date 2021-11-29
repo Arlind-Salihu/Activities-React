@@ -11,7 +11,7 @@ import * as Yup from 'yup';
 import MyTextInput from "../../../app/common/form/MyTextInput";
 import MyTextArea from "../../../app/common/form/MyTextArea";
 import MySelectInput from "../../../app/common/form/MySelectInput";
-import { categoryOptions } from "../../../app/common/options/CategoryOptions";
+import { categoryOptionsTelefonat } from "../../../app/common/options/CategoryOptions";
 import MyDateInput from "../../../app/common/form/MyDateInput";
 import { Telefoni } from "../../../app/models/telefoni";
 
@@ -70,7 +70,7 @@ export default observer(function TelefoniForm() {
         {({ handleSubmit, isValid, isSubmitting, dirty }) => (
           <Form className='ui form' onSubmit={handleSubmit} autoComplete="off">
             <MyTextInput name='emri' placeholder='Emri i Telefonit'/>
-            <MySelectInput options={categoryOptions} placeholder="Kategoria e Telefonit" name="kategoria"/>
+            <MySelectInput options={categoryOptionsTelefonat} placeholder="Kategoria e Telefonit" name="kategoria"/>
             <MyTextInput placeholder="Brendi i Telefonit" name="brendi"/>
             <MyDateInput  placeholderText="Data" name="data" showTimeSelect timeCaption='time' dateFormat='d MMMM, yyyy h:mm aa'/>
             <MyTextArea rows={3} placeholder="Pershkrimi i Telefonit" name="pershkrimi"/>

@@ -1,8 +1,12 @@
+//Others
 import React from "react";
 import { Container } from "semantic-ui-react";
 import NavBar from "./NavBar";
 import { observer } from "mobx-react-lite";
 import { Route, Switch, useLocation } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+
+//HomePage
 import HomePage from "../../features/home/HomePage";
 
 //Telefonat
@@ -15,10 +19,16 @@ import LaptopiDashboard from "../../features/laptopat/dashboard/LaptopiDashboard
 import LaptopiDetails from "../../features/laptopat/details/LaptopiDetails";
 import LaptopiForm from "../../features/laptopat/form/LaptopiForm";
 
+//Orat
+import OraDashboard from "../../features/orat/dashboard/OraDashboard";
+import OraDetails from "../../features/orat/details/OraDetails";
+import OraForm from "../../features/orat/form/OraForm";
+
+//Errors
 import TestErrors from "../../features/errors/TestError";
-import { ToastContainer } from "react-toastify";
 import NotFound from "../../features/errors/NotFound";
 import ServerError from "../../features/errors/ServerError";
+
 
 
 
@@ -30,11 +40,12 @@ function App() {
 
   return (
     <>
-    <ToastContainer position='bottom-right' hideProgressBar/>;
+    
       <Route exact path="/" component={HomePage} />
       
       <Route path={'/(.+)'} render={() => (
         <>
+        <ToastContainer position='bottom-right' hideProgressBar/>;
          <NavBar />
       <Container style={{ marginTop: "7em" }}>
         <Switch>
@@ -45,6 +56,10 @@ function App() {
         <Route exact path="/laptopat" component={LaptopiDashboard} />
         <Route path="/laptopat/:id" component={LaptopiDetails} />
         <Route key={location.key} path={['/createLaptopi', '/manageLaptopi/:id']} component={LaptopiForm}/>
+
+        <Route exact path="/orat" component={OraDashboard} />
+        <Route path="/orat/:id" component={OraDetails} />
+        <Route key={location.key} path={['/createOra', '/manageOra/:id']} component={OraForm}/>
 
         <Route path='/errors' component={TestErrors}/>
         <Route path='/server-error' component={ServerError}/>

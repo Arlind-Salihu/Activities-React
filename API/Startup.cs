@@ -41,10 +41,14 @@ namespace API
                 config.RegisterValidatorsFromAssemblyContaining<Application.Telefonat.Create>();
             });
 
-
             services.AddControllers().AddFluentValidation(config =>
             {
                 config.RegisterValidatorsFromAssemblyContaining<Application.Laptopat.Create>();
+            });
+
+            services.AddControllers().AddFluentValidation(config =>
+            {
+                config.RegisterValidatorsFromAssemblyContaining<Application.Orat.Create>();
             });
             services.AddApplicationServices(_config);
         }

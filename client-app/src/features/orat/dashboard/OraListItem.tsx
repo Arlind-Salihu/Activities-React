@@ -2,13 +2,13 @@ import { format } from "date-fns";
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button, Icon, Item, Segment } from "semantic-ui-react";
-import { Laptopi } from "../../../app/models/laptopi";
+import { Ora } from "../../../app/models/ora";
 
 interface Props {
-  laptopi: Laptopi;
+  ora: Ora;
 }
 
-export default function LaptopiListItem({ laptopi }: Props) {
+export default function OraListItem({ ora }: Props) {
 
   return (
     <Segment.Group>
@@ -17,8 +17,8 @@ export default function LaptopiListItem({ laptopi }: Props) {
           <Item>
             <Item.Image size="tiny" circular src="/assets/user.png" />
             <Item.Content>
-              <Item.Header as={Link} to={`/laptopat/${laptopi.id}`}>
-                {laptopi.emri}
+              <Item.Header as={Link} to={`/orat/${ora.id}`}>
+                {ora.emri}
               </Item.Header>
               <Item.Description>Hosted by Lindi</Item.Description>
             </Item.Content>
@@ -28,21 +28,21 @@ export default function LaptopiListItem({ laptopi }: Props) {
       <Segment>
         <span>
           <Icon name="clock" />
-          {format(laptopi.data!, 'dd, MMM yyyy h:mm aa')} <br />
+          {format(ora.data!, 'dd, MMM yyyy h:mm aa')} <br />
           <Icon name="shopping basket" />
-          {laptopi.kategoria} <br />
+          {ora.kategoria} <br />
           <Icon name="euro sign" />
-          {laptopi.cmimi}
+          {ora.cmimi}
         </span>
       </Segment>
         <Segment secondary>
           Te pranishmit
         </Segment>
       <Segment clearing>
-        <span>{laptopi.pershkrimi}</span>
+        <span>{ora.pershkrimi}</span>
         <Button
           as={Link}
-          to={`/laptopat/${laptopi.id}`}
+          to={`/orat/${ora.id}`}
           color="teal"
           floated="right"
           content="View"
