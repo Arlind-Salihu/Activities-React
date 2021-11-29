@@ -1,7 +1,8 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { toast } from "react-toastify";
 import { history } from "../..";
-import { Produkti } from "../models/produkti";
+import { Telefoni } from "../models/telefoni";
+import { Laptopi } from "../models/laptopi";
 import { store } from "../stores/store";
 
 const sleep = (delay: number) => {
@@ -58,16 +59,24 @@ const requests = {
     del: <T>(url: string) => axios.delete<T>(url).then(responseBody),
 }
 
-const Produktet = {
-    list: () => requests.get<Produkti[]>('/produktet'),
-    details: (id: string) => requests.get<Produkti>(`/produktet/${id}`),
-    create: (produkti: Produkti) => axios.post<void>('/produktet', produkti),
-    update: (produkti: Produkti) => axios.put<void>(`/produktet/${produkti.id}`, produkti),
-    delete: (id: string) => axios.delete<void>(`/produktet/${id}`)
+const Telefonat = {
+    list: () => requests.get<Telefoni[]>('/telefonat'),
+    details: (id: string) => requests.get<Telefoni>(`/telefonat/${id}`),
+    create: (telefoni: Telefoni) => axios.post<void>('/telefonat', telefoni),
+    update: (telefoni: Telefoni) => axios.put<void>(`/telefonat/${telefoni.id}`, telefoni),
+    delete: (id: string) => axios.delete<void>(`/telefonat/${id}`)
+}
+
+const Laptopat = {
+    list: () => requests.get<Laptopi[]>('/laptopat'),
+    details: (id: string) => requests.get<Laptopi>(`/laptopat/${id}`),
+    create: (laptopi: Laptopi) => axios.post<void>('/laptopat', laptopi),
+    update: (laptopi: Laptopi) => axios.put<void>(`/laptopat/${laptopi.id}`, laptopi),
+    delete: (id: string) => axios.delete<void>(`/laptopat/${id}`)
 }
 
 const agent = {
-    Produktet
+    Telefonat, Laptopat
 }
 
 export default agent;

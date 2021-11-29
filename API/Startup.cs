@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using API.Extensions;
 using API.Middleware;
 using Application.Core;
-using Application.Produktet;
 using AutoMapper;
 using FluentValidation.AspNetCore;
 using MediatR;
@@ -37,11 +36,17 @@ namespace API
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllers().AddFluentValidation(config =>{
-                config.RegisterValidatorsFromAssemblyContaining<Create>();
+            services.AddControllers().AddFluentValidation(config =>
+            {
+                config.RegisterValidatorsFromAssemblyContaining<Application.Telefonat.Create>();
+            });
+
+
+            services.AddControllers().AddFluentValidation(config =>
+            {
+                config.RegisterValidatorsFromAssemblyContaining<Application.Laptopat.Create>();
             });
             services.AddApplicationServices(_config);
-            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

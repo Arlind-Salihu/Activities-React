@@ -7,7 +7,8 @@ namespace Application.Core
     {
         public MappingProfiles()
         {
-            CreateMap<Produkti , Produkti>();
+            CreateMap<Telefoni , Telefoni>();
+            CreateMap<Laptopi, Laptopi>();
         }
     }
 }

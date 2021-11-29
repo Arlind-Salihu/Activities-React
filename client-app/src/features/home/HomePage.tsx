@@ -11,7 +11,7 @@ export default function HomePage () {
                    Tech E-Commerce
                </Header>
                <Header as='h2' inverted >
-                   <Button as={Link} to="/produktet" size='huge' inverted>Identifikohu ne Web-faqen tone!</Button>
+                   <Button as={Link} to="/telefonat" size='huge' inverted>Identifikohu ne Web-faqen tone!</Button>
                </Header>
            </Container>
        </Segment>

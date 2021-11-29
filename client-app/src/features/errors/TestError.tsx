@@ -25,11 +25,11 @@ export default function TestErrors() {
     }
 
     function handleBadGuid() {
-        axios.get(baseUrl + 'produktet/notaguid').catch(err => console.log(err));
+        axios.get(baseUrl + 'telefonat/notaguid').catch(err => console.log(err));
     }
 
     function handleValidationError() {
-        axios.post(baseUrl + 'produktet', {}).catch(err => setErrors(err));
+        axios.post(baseUrl + 'telefonat', {}).catch(err => setErrors(err));
     }
 
     return (

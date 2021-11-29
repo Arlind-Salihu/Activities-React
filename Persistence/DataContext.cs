@@ -8,6 +8,7 @@ namespace Persistence
         public DataContext(DbContextOptions options) : base(options)
         {
         }
-        public DbSet<Produkti> Produktet { get; set; }
+        public DbSet<Telefoni> Telefonat { get; set; }
+        public DbSet<Laptopi> Laptopat { get; set; }
     }
 }
