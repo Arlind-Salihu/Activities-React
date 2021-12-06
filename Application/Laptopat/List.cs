@@ -17,15 +17,15 @@ namespace Application.Laptopat
 
         public class Handler : IRequestHandler<Query, Result<List<Laptopi>>>
         {
-            private readonly DataContext _contextLaptopi;
-            public Handler(DataContext contextLaptopi)
+            private readonly DataContext _context;
+            public Handler(DataContext context)
             {
-                _contextLaptopi = contextLaptopi;
+                _context = context;
             }
 
             public async Task<Result<List<Laptopi>>> Handle(Query request, CancellationToken cancellationToken)
             {
-                return Result<List<Laptopi>>.Success(await _contextLaptopi.Laptopat.ToListAsync(cancellationToken));
+                return Result<List<Laptopi>>.Success(await _context.Laptopat.ToListAsync(cancellationToken));
             }
         }
     }

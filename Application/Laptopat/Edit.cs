@@ -26,23 +26,23 @@ namespace Application.Laptopat
 
         public class Handler : IRequestHandler<Command, Result<Unit>>
         {
-            private readonly DataContext _contextLaptopi;
+            private readonly DataContext _context;
             private readonly IMapper _mapper;
-            public Handler(DataContext contextLaptopi, IMapper mapper)
+            public Handler(DataContext context, IMapper mapper)
             {
                 _mapper = mapper;
-                _contextLaptopi = contextLaptopi;
+                _context = context;
             }
 
             public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
             {
-                var laptopi = await _contextLaptopi.Laptopat.FindAsync(request.Laptopi.Id);
+                var laptopi = await _context.Laptopat.FindAsync(request.Laptopi.Id);
 
                 if(laptopi == null) return null;
 
                 _mapper.Map(request.Laptopi, laptopi);
 
-                var result = await _contextLaptopi.SaveChangesAsync() > 0;
+                var result = await _context.SaveChangesAsync() > 0;
 
                 if(!result) return Result<Unit>.Failure("Deshtoi per te perditesuar laptopin");
 

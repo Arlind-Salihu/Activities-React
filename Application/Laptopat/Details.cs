@@ -16,16 +16,16 @@ namespace Application.Laptopat
         }
         public class Handler : IRequestHandler<Query, Result<Laptopi>>
         {
-            private readonly DataContext _contextLaptopi;
-            public Handler(DataContext contextLaptopi)
+            private readonly DataContext _context;
+            public Handler(DataContext context)
             {
-                _contextLaptopi = contextLaptopi;
+                _context = context;
 
             }
 
             public async Task<Result<Laptopi>> Handle(Query request, CancellationToken cancellationToken)
             {
-                var laptopi = await _contextLaptopi.Laptopat.FindAsync(request.Id);
+                var laptopi = await _context.Laptopat.FindAsync(request.Id);
 
                 return Result<Laptopi>.Success(laptopi);
             }

@@ -24,17 +24,17 @@ namespace Application.Laptopat
 
         public class Handler : IRequestHandler<Command, Result<Unit>>
         {
-            private readonly DataContext _contextLaptopi;
-            public Handler(DataContext contextLaptopi)
+            private readonly DataContext _context;
+            public Handler(DataContext context)
             {
-                _contextLaptopi = contextLaptopi;
+                _context = context;
             }
 
             public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
             {
-                _contextLaptopi.Laptopat.Add(request.Laptopi);
+                _context.Laptopat.Add(request.Laptopi);
 
-                var result = await _contextLaptopi.SaveChangesAsync() > 0;
+                var result = await _context.SaveChangesAsync() > 0;
                 
                 if(!result) return Result<Unit>.Failure("Deshtoi krijimi i laptopit");
 
