@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
+using Application.Profiles;
 
-namespace Domain
+namespace Application.Laptopat
 {
-    public class Laptopi
+    public class LaptopiDto
     {
         public Guid Id { get; set; }
         public string Emri { get; set; }
@@ -12,7 +13,8 @@ namespace Domain
         public DateTime Data { get; set; } 
         public string Pershkrimi { get; set; }               
         public decimal Cmimi { get; set; }
+        public string HostUsername { get; set; }
         public bool IsCancelled { get; set; }
-        public ICollection<LaptopatPrezenca> LaptopatPrezencat { get; set; } = new List<LaptopatPrezenca>();
+        public ICollection<Profile> LaptopatPrezencat { get; set; }
     }
 }

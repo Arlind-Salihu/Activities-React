@@ -8,24 +8,32 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using Microsoft.Extensions.Logging;
 using Application.Core;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 
 namespace Application.Telefonat
 {
     public class List
     {
-        public class Query : IRequest<Result<List<Telefoni>>> { }
+        public class Query : IRequest<Result<List<TelefoniDto>>> { }
 
-        public class Handler : IRequestHandler<Query, Result<List<Telefoni>>>
+        public class Handler : IRequestHandler<Query, Result<List<TelefoniDto>>>
         {
             private readonly DataContext _context;
-            public Handler(DataContext context)
+            private readonly IMapper _mapper;
+            public Handler(DataContext context, IMapper mapper)
             {
+                _mapper = mapper;
                 _context = context;
             }
 
-            public async Task<Result<List<Telefoni>>> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<Result<List<TelefoniDto>>> Handle(Query request, CancellationToken cancellationToken)
             {
-                return Result<List<Telefoni>>.Success(await _context.Telefonat.ToListAsync(cancellationToken));
+                var telefonat = await _context.Telefonat
+                .ProjectTo<TelefoniDto>(_mapper.ConfigurationProvider)
+                .ToListAsync(cancellationToken);
+
+                return Result<List<TelefoniDto>>.Success(telefonat);
             }
         }
     }

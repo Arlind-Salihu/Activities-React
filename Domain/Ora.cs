@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Domain
 {
@@ -11,5 +12,7 @@ namespace Domain
         public DateTime Data { get; set; } 
         public string Pershkrimi { get; set; }               
         public decimal Cmimi { get; set; }
+        public bool IsCancelled { get; set; }
+        public ICollection<OratPrezenca> OratPrezencat { get; set; } = new List<OratPrezenca>();
     }
 }

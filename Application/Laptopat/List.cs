@@ -8,24 +8,32 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using Microsoft.Extensions.Logging;
 using Application.Core;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 
 namespace Application.Laptopat
 {
     public class List
     {
-        public class Query : IRequest<Result<List<Laptopi>>> { }
+        public class Query : IRequest<Result<List<LaptopiDto>>> { }
 
-        public class Handler : IRequestHandler<Query, Result<List<Laptopi>>>
+        public class Handler : IRequestHandler<Query, Result<List<LaptopiDto>>>
         {
             private readonly DataContext _context;
-            public Handler(DataContext context)
+            private readonly IMapper _mapper;
+            public Handler(DataContext context, IMapper mapper)
             {
+                _mapper = mapper;
                 _context = context;
             }
 
-            public async Task<Result<List<Laptopi>>> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<Result<List<LaptopiDto>>> Handle(Query request, CancellationToken cancellationToken)
             {
-                return Result<List<Laptopi>>.Success(await _context.Laptopat.ToListAsync(cancellationToken));
+                var laptopat = await _context.Laptopat
+                .ProjectTo<LaptopiDto>(_mapper.ConfigurationProvider)
+                .ToListAsync(cancellationToken);
+
+                return Result<List<LaptopiDto>>.Success(laptopat);
             }
         }
     }

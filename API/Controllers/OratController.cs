@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 namespace API.Controllers
 {
-    [AllowAnonymous]
     public class OratController : BaseApiController
     {
         [HttpGet]
@@ -26,6 +25,7 @@ namespace API.Controllers
             return HandleResult(await Mediator.Send(new Create.Command{Ora = ora}));
         }
 
+        [Authorize(policy: "IsHost")]
         [HttpPut("{id}")]
         public async Task<IActionResult> EditOra(Guid id, Ora ora){
             
@@ -33,9 +33,15 @@ namespace API.Controllers
             return HandleResult(await Mediator.Send(new Edit.Command{Ora = ora}));
         }
 
+        [Authorize(policy: "IsHost")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteOra(Guid id){
             return HandleResult(await Mediator.Send(new Delete.Command{Id=id}));
+        }
+
+        [HttpPost("{id}/attend")]
+        public async Task<IActionResult> Attend(Guid id){
+            return HandleResult(await Mediator.Send(new UpdatePrezenca.Command{Id = id}));
         }
     }
 }
