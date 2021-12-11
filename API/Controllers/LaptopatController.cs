@@ -1,17 +1,13 @@
 using System;
-using System.Collections.Generic;
-using System.Threading;
 using System.Threading.Tasks;
 using Application.Laptopat;
 using Domain;
-using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Persistence;
 
 namespace API.Controllers
 {
+    [AllowAnonymous]
     public class LaptopatController : BaseApiController
     {
         [HttpGet]
@@ -19,8 +15,7 @@ namespace API.Controllers
         {
             return HandleResult(await Mediator.Send(new List.Query()));
         }
-
-        [Authorize]
+        
         [HttpGet("{id}")] // laptopat/id
         public async Task<IActionResult> GetLaptopat(Guid id)
         {

@@ -17,7 +17,7 @@ export default observer(function OraDashboard() {
 
 
   if (oraStore.loadingInitial)
-    return <LoadingComponent content={"Te dhenat jane duke u hapur!"}/>;
+    return <LoadingComponent content={"Te dhenat per produktet e Orave jane duke u hapur!"}/>;
   return (
     <Grid>
       <Grid.Column width="10">

@@ -1,10 +1,13 @@
 //Others
-import React from "react";
+import React, { useEffect } from "react";
 import { Container } from "semantic-ui-react";
 import NavBar from "./NavBar";
 import { observer } from "mobx-react-lite";
 import { Route, Switch, useLocation } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+
+//LogIn
+import LoginForm from "../../features/users/LoginForm";
 
 //HomePage
 import HomePage from "../../features/home/HomePage";
@@ -28,21 +31,30 @@ import OraForm from "../../features/orat/form/OraForm";
 import TestErrors from "../../features/errors/TestError";
 import NotFound from "../../features/errors/NotFound";
 import ServerError from "../../features/errors/ServerError";
+import { useStore } from "../stores/store";
+import LoadingComponent from "./LoadingComponent";
+import ModalContainer from "../common/modals/ModalContainer";
 
-
-
-
-
-//Laptopat
 
 function App() {
   const location = useLocation();
+  const {commonStore, userStore} = useStore();
+  
+  useEffect(() => {
+    if(commonStore.token){
+      userStore.getUser().finally(() => commonStore.setAppLoaded());
+    } else {
+      commonStore.setAppLoaded();
+    }
+  }, [commonStore, userStore])
+
+  if(!commonStore.appLoaded) return <LoadingComponent content="Loading app..."/>
 
   return (
     <>
-    
-      <Route exact path="/" component={HomePage} />
       
+      <ModalContainer/>
+      <Route exact path="/" component={HomePage} />
       <Route path={'/(.+)'} render={() => (
         <>
         <ToastContainer position='bottom-right' hideProgressBar/>;
@@ -63,6 +75,7 @@ function App() {
 
         <Route path='/errors' component={TestErrors}/>
         <Route path='/server-error' component={ServerError}/>
+        <Route path='/login' component={LoginForm}/>
         <Route component={NotFound}/>
         </Switch>
       </Container>
