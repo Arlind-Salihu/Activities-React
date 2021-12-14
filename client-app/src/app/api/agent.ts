@@ -1,9 +1,7 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { toast } from "react-toastify";
 import { history } from "../..";
-import { Telefoni } from "../models/telefoni";
-import { Laptopi } from "../models/laptopi";
-import { Ora } from "../models/ora";
+import { Telefoni, TelefoniFormValues } from "../models/telefoni";
 import { store } from "../stores/store";
 import { User, UserFormValues } from "../models/user";
 
@@ -70,25 +68,10 @@ const requests = {
 const Telefonat = {
     list: () => requests.get<Telefoni[]>('/telefonat'),
     details: (id: string) => requests.get<Telefoni>(`/telefonat/${id}`),
-    create: (telefoni: Telefoni) => axios.post<void>('/telefonat', telefoni),
-    update: (telefoni: Telefoni) => axios.put<void>(`/telefonat/${telefoni.id}`, telefoni),
-    delete: (id: string) => axios.delete<void>(`/telefonat/${id}`)
-}
-
-const Laptopat = {
-    list: () => requests.get<Laptopi[]>('/laptopat'),
-    details: (id: string) => requests.get<Laptopi>(`/laptopat/${id}`),
-    create: (laptopi: Laptopi) => axios.post<void>('/laptopat', laptopi),
-    update: (laptopi: Laptopi) => axios.put<void>(`/laptopat/${laptopi.id}`, laptopi),
-    delete: (id: string) => axios.delete<void>(`/laptopat/${id}`)
-}
-
-const Orat = {
-    list: () => requests.get<Ora[]>('/orat'),
-    details: (id: string) => requests.get<Ora>(`/orat/${id}`),
-    create: (ora: Ora) => axios.post<void>('/orat', ora),
-    update: (ora: Ora) => axios.put<void>(`/orat/${ora.id}`, ora),
-    delete: (id: string) => axios.delete<void>(`/orat/${id}`)
+    create: (telefoni: TelefoniFormValues) => requests.post<void>('/telefonat', telefoni),
+    update: (telefoni: TelefoniFormValues) => requests.put<void>(`/telefonat/${telefoni.id}`, telefoni),
+    delete: (id: string) => requests.del<void>(`/telefonat/${id}`),
+    telefoniPrezent: (id: string) => requests.post<void>(`/telefonat/${id}/attend`,{})
 }
 
 const Account = {
@@ -98,7 +81,7 @@ const Account = {
 }
 
 const agent = {
-    Telefonat, Laptopat, Orat, Account
+    Telefonat, Account
 }
 
 export default agent;

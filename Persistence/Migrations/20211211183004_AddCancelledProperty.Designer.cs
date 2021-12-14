@@ -86,108 +86,8 @@ namespace Persistence.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers");
-                });
-
-            modelBuilder.Entity("Domain.LaptopatPrezenca", b =>
-                {
-                    b.Property<string>("AppUserId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid>("LaptopiId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("isHost")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("AppUserId", "LaptopiId");
-
-                    b.HasIndex("LaptopiId");
-
-                    b.ToTable("LaptopatPrezencas");
-                });
-
-            modelBuilder.Entity("Domain.Laptopi", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Brendi")
-                        .HasColumnType("TEXT");
-
-                    b.Property<decimal>("Cmimi")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("Data")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Emri")
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("IsCancelled")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Kategoria")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Pershkrimi")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Laptopat");
-                });
-
-            modelBuilder.Entity("Domain.Ora", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Brendi")
-                        .HasColumnType("TEXT");
-
-                    b.Property<decimal>("Cmimi")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("Data")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Emri")
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("IsCancelled")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Kategoria")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Pershkrimi")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Orat");
-                });
-
-            modelBuilder.Entity("Domain.OratPrezenca", b =>
-                {
-                    b.Property<string>("AppUserId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid>("OraId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("isHost")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("AppUserId", "OraId");
-
-                    b.HasIndex("OraId");
-
-                    b.ToTable("OratPrezencas");
-                });
-
+                });           
+            
             modelBuilder.Entity("Domain.TelefonatPrezenca", b =>
                 {
                     b.Property<string>("AppUserId")
@@ -365,45 +265,7 @@ namespace Persistence.Migrations
 
                     b.ToTable("AspNetUserTokens");
                 });
-
-            modelBuilder.Entity("Domain.LaptopatPrezenca", b =>
-                {
-                    b.HasOne("Domain.AppUser", "AppUser")
-                        .WithMany("Laptopat")
-                        .HasForeignKey("AppUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Laptopi", "Laptopi")
-                        .WithMany("LaptopatPrezencat")
-                        .HasForeignKey("LaptopiId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AppUser");
-
-                    b.Navigation("Laptopi");
-                });
-
-            modelBuilder.Entity("Domain.OratPrezenca", b =>
-                {
-                    b.HasOne("Domain.AppUser", "AppUser")
-                        .WithMany("Orat")
-                        .HasForeignKey("AppUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Ora", "Ora")
-                        .WithMany("OratPrezencat")
-                        .HasForeignKey("OraId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AppUser");
-
-                    b.Navigation("Ora");
-                });
-
+                     
             modelBuilder.Entity("Domain.TelefonatPrezenca", b =>
                 {
                     b.HasOne("Domain.AppUser", "AppUser")
@@ -476,23 +338,9 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.AppUser", b =>
                 {
-                    b.Navigation("Laptopat");
-
-                    b.Navigation("Orat");
-
                     b.Navigation("Telefonat");
                 });
-
-            modelBuilder.Entity("Domain.Laptopi", b =>
-                {
-                    b.Navigation("LaptopatPrezencat");
-                });
-
-            modelBuilder.Entity("Domain.Ora", b =>
-                {
-                    b.Navigation("OratPrezencat");
-                });
-
+            
             modelBuilder.Entity("Domain.Telefoni", b =>
                 {
                     b.Navigation("TelefonatPrezencat");

@@ -1,8 +1,9 @@
 import { format } from "date-fns";
 import React from "react";
 import { Link } from "react-router-dom";
-import { Button, Icon, Item, Segment } from "semantic-ui-react";
+import { Button, Icon, Item, Label, Segment } from "semantic-ui-react";
 import { Telefoni } from "../../../app/models/telefoni";
+import TelefoniListItemPrezenca from "./TelefoniListItemPrezenca";
 
 interface Props {
   telefoni: Telefoni;
@@ -13,14 +14,29 @@ export default function TelefoniListItem({ telefoni }: Props) {
   return (
     <Segment.Group>
       <Segment>
+        {telefoni.isCancelled && <Label attached="top" color="red" content='Canceleld' style={{textAlign: 'center'}}/>}
         <Item.Group>
           <Item>
-            <Item.Image size="tiny" circular src="/assets/user.png" />
+            <Item.Image style={{marginBottom: 5}} size="tiny" circular src="/assets/user.png" />
             <Item.Content>
               <Item.Header as={Link} to={`/telefonat/${telefoni.id}`}>
                 {telefoni.emri}
               </Item.Header>
-              <Item.Description>Hosted by Lindi</Item.Description>
+              <Item.Description>Hosted by {telefoni.host?.displayName}</Item.Description>
+              {telefoni.isHost && (
+                <Item.Description>
+                  <Label basic color='orange'>
+                    Ju jeni Host per kete produkt
+                  </Label>
+                </Item.Description>
+              )}
+              {telefoni.isGoing && !telefoni.isHost && (
+                <Item.Description>
+                  <Label basic color='green'>
+                    Ju jeni duke shikuar kete produkt
+                  </Label>
+                </Item.Description>
+              )}
             </Item.Content>
           </Item>
         </Item.Group>
@@ -36,7 +52,7 @@ export default function TelefoniListItem({ telefoni }: Props) {
         </span>
       </Segment>
         <Segment secondary>
-          Te pranishmit
+          <TelefoniListItemPrezenca telefonatPrezencat={telefoni.telefonatPrezencat!}/>
         </Segment>
       <Segment clearing>
         <span>{telefoni.pershkrimi}</span>

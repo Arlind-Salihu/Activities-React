@@ -1,7 +1,9 @@
 import { format } from "date-fns";
 import { makeAutoObservable, runInAction } from "mobx"
 import agent from "../api/agent";
-import { Telefoni } from "../models/telefoni";
+import { Telefoni, TelefoniFormValues } from "../models/telefoni";
+import { Profile } from "../models/profile";
+import { store } from "./store";
 
 export default class TelefoniStore {
     telefoniRegistry = new Map<string, Telefoni>();
@@ -66,6 +68,14 @@ export default class TelefoniStore {
     }
 
     private setTelefoni = (telefoni: Telefoni) => {
+        const user = store.userStore.user;
+        if (user){
+            telefoni.isGoing = telefoni.telefonatPrezencat!.some(
+                a => a.username === user.username
+            )
+            telefoni.isHost = telefoni.hostUsername === user.username;
+            telefoni.host = telefoni.telefonatPrezencat?.find(x => x.username === telefoni.hostUsername)
+        }
         telefoni.data = new Date(telefoni.data!);
         this.telefoniRegistry.set(telefoni.id, telefoni);
     }
@@ -78,39 +88,35 @@ export default class TelefoniStore {
         this.loadingInitial = state;
     }
 
-    createTelefoni = async (telefoni: Telefoni) => {
-        this.loading = true;
+    createTelefoni = async (telefoni: TelefoniFormValues) => {
+        const user = store.userStore.user;
+        const telefoniPrezent = new Profile(user!);
         try {
             await agent.Telefonat.create(telefoni);
+            const newTelefoni = new Telefoni(telefoni);
+            newTelefoni.hostUsername = user!.username;
+            newTelefoni.telefonatPrezencat = [telefoniPrezent];
+            this.setTelefoni(newTelefoni);
             runInAction(() => {
-                this.telefoniRegistry.set(telefoni.id, telefoni);
-                this.selectedTelefoni = telefoni;
-                this.editMode = false;
-                this.loading = false;
+                this.selectedTelefoni = newTelefoni;
             })
         } catch (error) {
             console.log(error);
-            runInAction(() => {
-                this.loading = false;
-            })
         }
     }
 
-    updateTelefoni = async (telefoni: Telefoni) => {
-        this.loading = true;
+    updateTelefoni = async (telefoni: TelefoniFormValues) => {
         try {
             await agent.Telefonat.update(telefoni);
             runInAction(() => {
-                this.telefoniRegistry.set(telefoni.id, telefoni)
-                this.selectedTelefoni = telefoni;
-                this.editMode = false;
-                this.loading = false;
+                if(telefoni.id){
+                    let updatedTelefoni = {...this.getTelefoni(telefoni.id), ...telefoni}
+                    this.telefoniRegistry.set(telefoni.id, updatedTelefoni as Telefoni);
+                    this.selectedTelefoni = updatedTelefoni as Telefoni;
+                }
             })
         } catch (error) {
             console.log(error);
-            runInAction(() => {
-                this.loading = false;
-            })
         }
     }
 
@@ -127,6 +133,44 @@ export default class TelefoniStore {
             runInAction(() => {
                 this.loading = false;
             })
+        }
+    }
+
+    updatePrezencen = async () => {
+        const user = store.userStore.user;
+        this.loading = true;
+        try {
+            await agent.Telefonat.telefoniPrezent(this.selectedTelefoni!.id);
+            runInAction(() => {
+                if(this.selectedTelefoni?.isGoing){
+                    this.selectedTelefoni.telefonatPrezencat = this.selectedTelefoni.telefonatPrezencat?.filter(a => a.username !== user?.username);
+                    this.selectedTelefoni.isGoing = false;
+                } else {
+                    const telefoniPrezent = new Profile(user!);
+                    this.selectedTelefoni?.telefonatPrezencat?.push(telefoniPrezent);
+                    this.selectedTelefoni!.isGoing = true;
+                }
+                this.telefoniRegistry.set(this.selectedTelefoni!.id, this.selectedTelefoni!)
+            })
+        } catch (error) {
+            console.log(error)            
+        } finally {
+            runInAction(() => this.loading = false);
+        }
+    }
+
+    cancelTelefoniToggle = async () => {
+        this.loading = true;
+        try {
+            await agent.Telefonat.telefoniPrezent(this.selectedTelefoni!.id);
+            runInAction(() => {
+                this.selectedTelefoni!.isCancelled = !this.selectedTelefoni?.isCancelled;
+                this.telefoniRegistry.set(this.selectedTelefoni!.id, this.selectedTelefoni!)
+            })
+        } catch (error) {
+            console.log(error);
+        } finally {
+            runInAction(() => this.loading = false);
         }
     }
 }

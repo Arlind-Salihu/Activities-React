@@ -45,20 +45,7 @@ namespace API
             {
                 config.RegisterValidatorsFromAssemblyContaining<Application.Telefonat.Create>();
             });
-
-            services.AddControllers(opt => {var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
-            opt.Filters.Add(new AuthorizeFilter(policy));
-            }).AddFluentValidation(config =>
-            {
-                config.RegisterValidatorsFromAssemblyContaining<Application.Laptopat.Create>();
-            });
-
-            services.AddControllers(opt => {var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
-            opt.Filters.Add(new AuthorizeFilter(policy));
-            }).AddFluentValidation(config =>
-            {
-                config.RegisterValidatorsFromAssemblyContaining<Application.Orat.Create>();
-            });
+           
             services.AddApplicationServices(_config);
             services.AddIdentityServices(_config);
         }

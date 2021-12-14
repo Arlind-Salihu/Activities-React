@@ -15,48 +15,18 @@ export default observer (function NavBar() {
         </Menu.Item>
       </Container>
 
-      <Menu.Item as={NavLink} to="/telefonat" name="Telefonat" />
-      <Menu.Item as={NavLink} to="/laptopat" name="Laptopat" />
-      <Menu.Item as={NavLink} to="/orat" name="Orat" />
-
-      <Dropdown item style={{backgroundColor: "#3D83A9", color: "white", fontSize: "16px"}} text="Krijo Produktin">
-        <Dropdown.Menu style={{backgroundColor: "#AEB6BF"}}>
-          <Dropdown.Item>
-            <Button
-              as={NavLink}
-              to="/createTelefoni"
-              style={{backgroundColor: "#AEB6BF"}}
-              content="Krijo Telefonin"
-            />
-          </Dropdown.Item>
-          <Dropdown.Item>
-            <Button
-              as={NavLink}
-              to="/createLaptopi"
-              style={{backgroundColor: "#AEB6BF"}}
-              content="Krijo Laptopin"
-            />
-          </Dropdown.Item>
-          <Dropdown.Item>
-            <Button
-              as={NavLink}
-              to="/createOra"
-              style={{backgroundColor: "#AEB6BF"}}
-              content="Krijo Oren"
-            />
-          </Dropdown.Item>
-        </Dropdown.Menu>
-      </Dropdown>
+      <Menu.Item as={NavLink} to="/telefonat" name="Telefonat"/>
+      <Button as={NavLink} to="/createTelefoni" style={{backgroundColor: "#AEB6BF"}} content="Krijo Telefonin"/>
       <Menu.Item position='right'>
         <Image src={user?.image || '/assets/user.png'} avatar spaced='right'/>
-        <Dropdown pointing='top left' text={user?.displayName}>
+        <Dropdown pointing='top right' text={user?.displayName}>
           <Dropdown.Menu>
           <Dropdown.Item as={Link} to={`/profle/${user?.username}`} text='Profile' icon='user'/>
           <Dropdown.Item onClick={logout} text='Logout' icon='power'/>
           </Dropdown.Menu> 
         </Dropdown>
       </Menu.Item>
-      <Menu.Item as={NavLink} to="/errors" name="Errors" />
+      {/* <Menu.Item as={NavLink} to="/errors" name="Errors" /> */}
     </Menu>
   );
 })

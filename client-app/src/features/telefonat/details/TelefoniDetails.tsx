@@ -34,7 +34,7 @@ export default observer(function TelefoniDetails() {
         <TelefoniDetailedChat/>
       </Grid.Column>
       <Grid.Column width={6}>
-        <TelefoniDetailedSidebar/>
+        <TelefoniDetailedSidebar telefoni={telefoni}/>
       </Grid.Column>
     </Grid>
   );

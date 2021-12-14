@@ -15,68 +15,7 @@ namespace Persistence.Migrations
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder
-                .HasAnnotation("ProductVersion", "5.0.1");
-
-            modelBuilder.Entity("Domain.Laptopi", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Brendi")
-                        .HasColumnType("TEXT");
-
-                    b.Property<decimal>("Cmimi")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("Data")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Emri")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Kategoria")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Pershkrimi")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Laptopat");
-                });
-
-            modelBuilder.Entity("Domain.Ora", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Brendi")
-                        .HasColumnType("TEXT");
-
-                    b.Property<decimal>("Cmimi")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("Data")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Emri")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Kategoria")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Pershkrimi")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Orat");
-                });
-
-            modelBuilder.Entity("Domain.Telefoni", b =>
+                    modelBuilder.Entity("Domain.Telefoni", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
