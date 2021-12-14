@@ -15,6 +15,6 @@ namespace Application.Telefonat
         public decimal Cmimi { get; set; }
         public string HostUsername { get; set; }
         public bool IsCancelled { get; set; }
-        public ICollection<Profile> TelefonatPrezencat { get; set; }
+        public ICollection<PrezencaDto> TelefonatPrezencat { get; set; }
     }
 }

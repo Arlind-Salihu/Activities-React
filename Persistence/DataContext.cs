@@ -11,6 +11,7 @@ namespace Persistence
         }
         public DbSet<Telefoni> Telefonat { get; set; }
         public DbSet<TelefonatPrezenca> TelefonatPrezencas { get; set; }
+        public DbSet<Photo> Photos { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
