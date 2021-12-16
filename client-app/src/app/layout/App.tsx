@@ -12,6 +12,9 @@ import LoginForm from "../../features/users/LoginForm";
 //HomePage
 import HomePage from "../../features/home/HomePage";
 
+//Profile
+import ProfilePage from "../../features/profiles/ProfilePage";
+
 //Telefonat
 import TelefoniDashboard from "../../features/telefonat/dashboard/TelefoniDashboard";
 import TelefoniDetails from "../../features/telefonat/details/TelefoniDetails";
@@ -54,6 +57,7 @@ function App() {
         <Route exact path="/telefonat" component={TelefoniDashboard} />
         <Route path="/telefonat/:id" component={TelefoniDetails} />
         <Route key={location.key} path={['/createTelefoni', '/manage/:id']} component={TelefoniForm}/>
+        <Route path='/profiles/:username' component={ProfilePage}/>
 
         <Route path='/errors' component={TestErrors}/>
         <Route path='/server-error' component={ServerError}/>

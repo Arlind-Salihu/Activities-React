@@ -14,15 +14,15 @@ export default function TelefoniListItem({ telefoni }: Props) {
   return (
     <Segment.Group>
       <Segment>
-        {telefoni.isCancelled && <Label attached="top" color="red" content='Canceleld' style={{textAlign: 'center'}}/>}
+        {telefoni.isCancelled && <Label attached="top" color="red" content='Canceled' style={{textAlign: 'center'}}/>}
         <Item.Group>
           <Item>
-            <Item.Image style={{marginBottom: 5}} size="tiny" circular src="/assets/user.png" />
+            <Item.Image style={{marginBottom: 5}} size="tiny" circular src={telefoni.host?.image || "/assets/user.png"} />
             <Item.Content>
               <Item.Header as={Link} to={`/telefonat/${telefoni.id}`}>
                 {telefoni.emri}
               </Item.Header>
-              <Item.Description>Hosted by {telefoni.host?.displayName}</Item.Description>
+              <Item.Description>Hosted by <Link to={`/profiles/${telefoni.hostUsername}`}>{telefoni.host?.displayName}</Link></Item.Description>
               {telefoni.isHost && (
                 <Item.Description>
                   <Label basic color='orange'>

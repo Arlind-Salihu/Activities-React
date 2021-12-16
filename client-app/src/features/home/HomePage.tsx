@@ -23,8 +23,8 @@ export default observer(function HomePage () {
                    </>
                ): (
                    <>
-                   <Button onClick={() => modalStore.openModal(<LoginForm/>)} size='huge' inverted>Identifikohu ne Web-faqen tone!</Button>
-                   <Button onClick={() => modalStore.openModal(<RegisterForm/>)} size='huge' inverted>Regjistrohuni ne Web-faqen tone!</Button>
+                   <Button onClick={() => modalStore.openModal(<LoginForm/>)} size='medium' inverted>Identifikohu ne Web-faqen tone!</Button>
+                   <Button onClick={() => modalStore.openModal(<RegisterForm/>)} size='medium' inverted>Regjistrohuni ne Web-faqen tone!</Button>
                    </>
                )}
            </Container>
