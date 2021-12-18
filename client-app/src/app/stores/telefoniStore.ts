@@ -173,4 +173,8 @@ export default class TelefoniStore {
             runInAction(() => this.loading = false);
         }
     }
+
+    clearSelectedTelefoni = () => {
+        this.selectedTelefoni = undefined;
+    }
 }

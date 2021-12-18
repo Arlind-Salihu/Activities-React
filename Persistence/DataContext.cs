@@ -12,6 +12,7 @@ namespace Persistence
         public DbSet<Telefoni> Telefonat { get; set; }
         public DbSet<TelefonatPrezenca> TelefonatPrezencas { get; set; }
         public DbSet<Photo> Photos { get; set; }
+        public DbSet<Comment> Comments { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -27,6 +28,11 @@ namespace Persistence
             .HasOne(u => u.Telefoni)
             .WithMany(a => a.TelefonatPrezencat)
             .HasForeignKey(aa => aa.TelefoniId);
+
+            builder.Entity<Comment>()
+            .HasOne(a => a.Telefoni)
+            .WithMany(c => c.Comments)
+            .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

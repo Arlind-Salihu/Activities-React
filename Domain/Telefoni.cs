@@ -14,5 +14,6 @@ namespace Domain
         public decimal Cmimi { get; set; }
         public bool IsCancelled { get; set; }
         public ICollection<TelefonatPrezenca> TelefonatPrezencat { get; set; } = new List<TelefonatPrezenca>();
+        public ICollection<Comment> Comments { get; set; } = new List<Comment>();
     }
 }

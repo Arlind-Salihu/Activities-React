@@ -15,12 +15,14 @@ export default observer(function TelefoniDetails() {
     selectedTelefoni: telefoni,
     loadTelefoni,
     loadingInitial,
+    clearSelectedTelefoni
   } = telefoniStore;
   const { id } = useParams<{ id: string }>();
 
   useEffect(() => {
     if (id) loadTelefoni(id);
-  }, [id, loadTelefoni]);
+    return () => clearSelectedTelefoni();
+  }, [id, loadTelefoni, clearSelectedTelefoni]);
 
   if (loadingInitial || !telefoni)
     return (
@@ -31,7 +33,7 @@ export default observer(function TelefoniDetails() {
       <Grid.Column width={10}>
         <TelefoniDetailedHeader telefoni={telefoni}/>
         <TelefoniDetailedInfo telefoni={telefoni}/>
-        <TelefoniDetailedChat/>
+        <TelefoniDetailedChat telefoniId={telefoni.id}/>
       </Grid.Column>
       <Grid.Column width={6}>
         <TelefoniDetailedSidebar telefoni={telefoni}/>
