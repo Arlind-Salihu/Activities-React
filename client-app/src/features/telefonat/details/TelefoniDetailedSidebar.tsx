@@ -39,7 +39,8 @@ export default observer(function TelefoniDetailedSidebar ({telefoni: {telefonatP
                             <Item.Header as='h3'>
                                 <Link to={`/profiles/${telefonatPrezenca.username}`}>{telefonatPrezenca.displayName}</Link>
                             </Item.Header>
-                            <Item.Extra style={{ color: 'orange' }}>Following</Item.Extra>
+                            {telefonatPrezenca.following &&
+                            <Item.Extra style={{ color: 'orange' }}>Following</Item.Extra>}
                         </Item.Content>
                     </Item>
                     ))}

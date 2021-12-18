@@ -5,11 +5,10 @@ using System.Threading.Tasks;
 using System.Threading;
 using Persistence;
 using Microsoft.EntityFrameworkCore;
-using System;
-using Microsoft.Extensions.Logging;
 using Application.Core;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Application.Interfaces;
 
 namespace Application.Telefonat
 {
@@ -21,8 +20,10 @@ namespace Application.Telefonat
         {
             private readonly DataContext _context;
             private readonly IMapper _mapper;
-            public Handler(DataContext context, IMapper mapper)
+            private readonly IUserAccessor _userAccessor;
+            public Handler(DataContext context, IMapper mapper, IUserAccessor userAccessor)
             {
+                _userAccessor = userAccessor;
                 _mapper = mapper;
                 _context = context;
             }
@@ -30,7 +31,7 @@ namespace Application.Telefonat
             public async Task<Result<List<TelefoniDto>>> Handle(Query request, CancellationToken cancellationToken)
             {
                 var telefonat = await _context.Telefonat
-                .ProjectTo<TelefoniDto>(_mapper.ConfigurationProvider)
+                .ProjectTo<TelefoniDto>(_mapper.ConfigurationProvider, new {currentUsername = _userAccessor.GetUsername()})
                 .ToListAsync(cancellationToken);
 
                 return Result<List<TelefoniDto>>.Success(telefonat);

@@ -177,4 +177,15 @@ export default class TelefoniStore {
     clearSelectedTelefoni = () => {
         this.selectedTelefoni = undefined;
     }
+
+    updatePrezencaFollowing = (username: string) => {
+        this.telefoniRegistry.forEach(telefoni => {
+            telefoni.telefonatPrezencat.forEach(telefoniPrezenca =>{
+                if(telefoniPrezenca.username === username){
+                    telefoniPrezenca.following ? telefoniPrezenca.followersCount-- : telefoniPrezenca.followersCount++;
+                    telefoniPrezenca.following = !telefoniPrezenca.following;
+                }
+            })
+        })
+    }
 }
