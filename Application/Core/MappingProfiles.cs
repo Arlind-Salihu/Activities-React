@@ -1,17 +1,18 @@
 using System.Linq;
 using Application.Comments;
+using Application.Profiles;
 using Application.Telefonat;
 using AutoMapper;
 using Domain;
 
 namespace Application.Core
 {
-    public class MappingProfiles : Profile
+    public class MappingProfiles : AutoMapper.Profile
     {
         public MappingProfiles()
         {
             string currentUsername = null;
-            CreateMap<Telefoni , Telefoni>();
+            CreateMap<Telefoni, Telefoni>();
 
             CreateMap<Telefoni, TelefoniDto>()
             .ForMember(d => d.HostUsername, o => o.MapFrom(s => s.TelefonatPrezencat
@@ -34,6 +35,13 @@ namespace Application.Core
             CreateMap<Comment, CommentDto>().ForMember(d => d.DisplayName, o => o.MapFrom(s => s.Author.DisplayName))
             .ForMember(d => d.Username, o => o.MapFrom(s => s.Author.UserName))
             .ForMember(d => d.Image, o => o.MapFrom(s => s.Author.Photos.FirstOrDefault(x => x.IsMain).Url));
+
+            CreateMap<TelefonatPrezenca, UserTelefoniDto>()
+            .ForMember(d => d.Id, o => o.MapFrom(s => s.Telefoni.Id))
+            .ForMember(d => d.Emri, o => o.MapFrom(s => s.Telefoni.Emri))
+            .ForMember(d => d.Kategoria, o => o.MapFrom(s => s.Telefoni.Kategoria))
+            .ForMember(d => d.Data, o => o.MapFrom(s => s.Telefoni.Data))
+            .ForMember(d => d.HostUsername, o => o.MapFrom(s => s.Telefoni.TelefonatPrezencat.FirstOrDefault(x => x.isHost).AppUser.UserName));
         }
     }
 }

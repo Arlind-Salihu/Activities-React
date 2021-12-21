@@ -10,7 +10,7 @@ export interface Telefoni {
     cmimi: number | null;
     hostUsername: string;
     isCancelled: boolean;
-    isGoing: boolean;
+    isInteresed: boolean;
     isHost: boolean;
     host?: Profile;
     telefonatPrezencat: Profile[]

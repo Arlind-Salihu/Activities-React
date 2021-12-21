@@ -71,7 +71,7 @@ export default observer(function TelefoniDetailedHeader({ telefoni }: Props) {
             Menaxho Telefonin
           </Button>
           </>
-        ) : telefoni.isGoing ? (
+        ) : telefoni.isInteresed ? (
           <Button loading={loading} onClick={updatePrezencen}>Anulo te shikuarit</Button>
         ) : (
           <Button disabled={telefoni.isCancelled} loading={loading}

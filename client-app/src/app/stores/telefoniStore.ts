@@ -1,9 +1,10 @@
 import { format } from "date-fns";
-import { makeAutoObservable, runInAction } from "mobx"
+import { makeAutoObservable, reaction, runInAction } from "mobx"
 import agent from "../api/agent";
 import { Telefoni, TelefoniFormValues } from "../models/telefoni";
 import { Profile } from "../models/profile";
 import { store } from "./store";
+import { Pagination, PagingParams } from "../models/pagination";
 
 export default class TelefoniStore {
     telefoniRegistry = new Map<string, Telefoni>();
@@ -11,9 +12,63 @@ export default class TelefoniStore {
     editMode = false;
     loading = false;
     loadingInitial = false;
+    pagination: Pagination | null = null;
+    pagingParams = new PagingParams();
+    predicate = new Map().set('all', true);
 
     constructor() {
         makeAutoObservable(this)
+
+        reaction(() => this.predicate.keys(),
+        () => {
+            this.pagingParams = new PagingParams();
+            this.telefoniRegistry.clear();
+            this.loadTelefonat();
+        }
+    )
+    }
+
+    setPagingParams = (pagingParams: PagingParams) =>{
+        this.pagingParams = pagingParams;
+    }
+
+    setPredicate = (predicate: string, value: string | Date) =>{
+        const resetPredicate = () =>{
+            this.predicate.forEach((value, key) => {
+                if(key !== 'startDate') this.predicate.delete(key);
+            })
+        }
+        switch (predicate) {
+            case 'all':
+                resetPredicate();
+                this.predicate.set('all', true);
+                break;
+            case 'isInteresed':
+                resetPredicate();
+                this.predicate.set('isInteresed', true);
+                break;
+            case 'isHost':
+                resetPredicate();
+                this.predicate.set('isHost', true);
+                break;
+            case 'startDate':
+                this.predicate.delete('startDate');
+                this.predicate.set('startDate', value);
+        }
+    }
+
+    get axiosParams(){
+        const params = new URLSearchParams();
+        params.append('pageNumber', this.pagingParams.pageNumber.toString());
+        params.append('pageSize', this.pagingParams.pageSize.toString());
+        this.predicate.forEach((value, key) => {
+            if(key === 'startDate'){
+                params.append(key, (value as Date).toISOString())
+            } else {
+                params.append(key, value);
+            }
+        })
+        return params;
     }
 
     get telefonatByDate() {
@@ -33,16 +88,20 @@ export default class TelefoniStore {
     loadTelefonat = async () => {
         this.loadingInitial = true;
         try {
-            const telefonat = await agent.Telefonat.list();
-
-            telefonat.forEach((telefoni) => {
+            const result = await agent.Telefonat.list(this.axiosParams);
+            result.data.forEach((telefoni) => {
                 this.setTelefoni(telefoni);
             })
+            this.setPagination(result.pagination);
             this.setLoadingInitial(false);
         } catch (error) {
             console.log(error)
             this.setLoadingInitial(false);
         }
+    }
+
+    setPagination = (pagination: Pagination) => {
+        this.pagination = pagination;
     }
 
     loadTelefoni = async (id: string) => {
@@ -70,7 +129,7 @@ export default class TelefoniStore {
     private setTelefoni = (telefoni: Telefoni) => {
         const user = store.userStore.user;
         if (user){
-            telefoni.isGoing = telefoni.telefonatPrezencat!.some(
+            telefoni.isInteresed = telefoni.telefonatPrezencat!.some(
                 a => a.username === user.username
             )
             telefoni.isHost = telefoni.hostUsername === user.username;
@@ -142,13 +201,13 @@ export default class TelefoniStore {
         try {
             await agent.Telefonat.telefoniPrezent(this.selectedTelefoni!.id);
             runInAction(() => {
-                if(this.selectedTelefoni?.isGoing){
+                if(this.selectedTelefoni?.isInteresed){
                     this.selectedTelefoni.telefonatPrezencat = this.selectedTelefoni.telefonatPrezencat?.filter(a => a.username !== user?.username);
-                    this.selectedTelefoni.isGoing = false;
+                    this.selectedTelefoni.isInteresed = false;
                 } else {
                     const telefoniPrezent = new Profile(user!);
                     this.selectedTelefoni?.telefonatPrezencat?.push(telefoniPrezent);
-                    this.selectedTelefoni!.isGoing = true;
+                    this.selectedTelefoni!.isInteresed = true;
                 }
                 this.telefoniRegistry.set(this.selectedTelefoni!.id, this.selectedTelefoni!)
             })

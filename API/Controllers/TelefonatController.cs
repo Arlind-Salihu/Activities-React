@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Application.Core;
 using Application.Telefonat;
 using Domain;
 using Microsoft.AspNetCore.Authorization;
@@ -11,9 +12,9 @@ namespace API.Controllers
     public class TelefonatController : BaseApiController
     {
         [HttpGet]
-        public async Task<IActionResult> GetTelefonat()
+        public async Task<IActionResult> GetTelefonat([FromQuery]TelefoniParams param)
         {
-            return HandleResult(await Mediator.Send(new List.Query()));
+            return HandlePagedResult(await Mediator.Send(new List.Query{Params = param}));
         }
 
         [HttpGet("{id}")] // telefonat/id

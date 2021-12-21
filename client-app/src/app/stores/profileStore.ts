@@ -1,6 +1,6 @@
 import { makeAutoObservable, reaction, runInAction } from "mobx";
 import agent from "../api/agent";
-import { Photo, Profile } from "../models/profile";
+import { Photo, Profile, UserTelefoni } from "../models/profile";
 import { store } from "./store";
 
 export default class ProfileStore {
@@ -11,6 +11,8 @@ export default class ProfileStore {
     followings: Profile[] = [];
     loadingFollowings: boolean = false;
     activeTab = 0;
+    userTelefonat: UserTelefoni[] = [];
+    loadingTelefonat = false;
 
     constructor() {
         makeAutoObservable(this);
@@ -168,4 +170,21 @@ export default class ProfileStore {
             runInAction(() => this.loadingFollowings = false);
         }
     }
+
+    loadUserTelefonat = async (username: string, predicate?: string) => {
+        this.loadingTelefonat = true;
+        try {
+        const telefonat = await agent.Profiles.listTelefonat(username,
+        predicate!);
+        runInAction(() => {
+        this.userTelefonat = telefonat;
+        this.loadingTelefonat = false;
+        })
+        } catch (error) {
+        console.log(error);
+        runInAction(() => {
+        this.loadingTelefonat = false;
+        })
+        }
+        }
 }

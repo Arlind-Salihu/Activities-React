@@ -30,7 +30,7 @@ export default function TelefoniListItem({ telefoni }: Props) {
                   </Label>
                 </Item.Description>
               )}
-              {telefoni.isGoing && !telefoni.isHost && (
+              {telefoni.isInteresed && !telefoni.isHost && (
                 <Item.Description>
                   <Label basic color='green'>
                     Ju jeni duke shikuar kete produkt

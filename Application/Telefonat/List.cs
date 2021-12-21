@@ -9,14 +9,17 @@ using Application.Core;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Application.Interfaces;
+using System.Linq;
 
 namespace Application.Telefonat
 {
     public class List
     {
-        public class Query : IRequest<Result<List<TelefoniDto>>> { }
+        public class Query : IRequest<Result<PagedList<TelefoniDto>>> {
+            public TelefoniParams Params { get; set; }
+        }
 
-        public class Handler : IRequestHandler<Query, Result<List<TelefoniDto>>>
+        public class Handler : IRequestHandler<Query, Result<PagedList<TelefoniDto>>>
         {
             private readonly DataContext _context;
             private readonly IMapper _mapper;
@@ -28,13 +31,25 @@ namespace Application.Telefonat
                 _context = context;
             }
 
-            public async Task<Result<List<TelefoniDto>>> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<Result<PagedList<TelefoniDto>>> Handle(Query request, CancellationToken cancellationToken)
             {
-                var telefonat = await _context.Telefonat
+                var query = _context.Telefonat
+                .Where(d => d.Data >= request.Params.StartDate)
+                .OrderBy(d => d.Data)
                 .ProjectTo<TelefoniDto>(_mapper.ConfigurationProvider, new {currentUsername = _userAccessor.GetUsername()})
-                .ToListAsync(cancellationToken);
+                .AsQueryable();
 
-                return Result<List<TelefoniDto>>.Success(telefonat);
+                if (request.Params.IsInteresed && !request.Params.IsHost){
+                    query = query.Where(x => x.TelefonatPrezencat.Any(a => a.Username == _userAccessor.GetUsername()));
+                }
+
+                if(request.Params.IsHost && !request.Params.IsInteresed){
+                    query = query.Where(x => x.HostUsername == _userAccessor.GetUsername());
+                }
+
+                return Result<PagedList<TelefoniDto>>.Success(
+                    await PagedList<TelefoniDto>.CreateAsync(query, request.Params.PageNumber, request.Params.PageSize)
+                );
             }
         }
     }

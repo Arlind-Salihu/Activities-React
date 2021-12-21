@@ -23,3 +23,10 @@ export interface Photo{
     url: string;
     isMain: boolean;
 }
+
+export interface UserTelefoni {
+    id: string;
+    emri: string;
+    kategoria: string;
+    data: Date;
+    }
