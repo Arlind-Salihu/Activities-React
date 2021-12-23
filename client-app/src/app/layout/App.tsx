@@ -6,9 +6,6 @@ import { observer } from "mobx-react-lite";
 import { Route, Switch, useLocation } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
-//LogIn
-import LoginForm from "../../features/users/LoginForm";
-
 //HomePage
 import HomePage from "../../features/home/HomePage";
 
@@ -27,47 +24,47 @@ import ServerError from "../../features/errors/ServerError";
 import { useStore } from "../stores/store";
 import LoadingComponent from "./LoadingComponent";
 import ModalContainer from "../common/modals/ModalContainer";
-
+import PrivateRoute from "./PrivateRoute";
 
 function App() {
   const location = useLocation();
-  const {commonStore, userStore} = useStore();
-  
+  const { commonStore, userStore } = useStore();
+
   useEffect(() => {
-    if(commonStore.token){
+    if (commonStore.token) {
       userStore.getUser().finally(() => commonStore.setAppLoaded());
     } else {
       commonStore.setAppLoaded();
     }
-  }, [commonStore, userStore])
+  }, [commonStore, userStore]);
 
-  if(!commonStore.appLoaded) return <LoadingComponent content="Loading app..."/>
+  if (!commonStore.appLoaded)
+    return <LoadingComponent content="Loading app..." />;
 
   return (
     <>
-      
-      <ModalContainer/>
+      <ModalContainer />
       <Route exact path="/" component={HomePage} />
-      <Route path={'/(.+)'} render={() => (
-        <>
-        <ToastContainer position='bottom-right' hideProgressBar/>;
-         <NavBar />
-      <Container style={{ marginTop: "7em" }}>
-        <Switch>
-        <Route exact path="/telefonat" component={TelefoniDashboard} />
-        <Route path="/telefonat/:id" component={TelefoniDetails} />
-        <Route key={location.key} path={['/createTelefoni', '/manage/:id']} component={TelefoniForm}/>
-        <Route path='/profiles/:username' component={ProfilePage}/>
-
-        <Route path='/errors' component={TestErrors}/>
-        <Route path='/server-error' component={ServerError}/>
-        <Route path='/login' component={LoginForm}/>
-        <Route component={NotFound}/>
-        </Switch>
-      </Container>
-      
-        </>
-      )}
+      <Route
+        path={"/(.+)"}
+        render={() => (
+          <>
+            <ToastContainer position="bottom-right" hideProgressBar />;
+            <NavBar />
+            <Container style={{ marginTop: "7em" }}>
+              <Switch>
+                <PrivateRoute exact path="/telefonat" component={TelefoniDashboard}/>
+                <PrivateRoute path="/telefonat/:id" component={TelefoniDetails}/>
+                <PrivateRoute key={location.key} path={["/createTelefoni", "/manage/:id"]} component={TelefoniForm}/>
+                <PrivateRoute path="/profiles/:username" component={ProfilePage}/>
+                <PrivateRoute path="/errors" component={TestErrors} />
+                
+                <Route path="/server-error" component={ServerError} />
+                <Route component={NotFound} />
+              </Switch>
+            </Container>
+          </>
+        )}
       />
     </>
   );

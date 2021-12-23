@@ -13,7 +13,7 @@ export default class CommentStore{
 
     createHubConnection = (telefoniId: string) => {
         if(store.telefoniStore.selectedTelefoni){
-            this.hubConnection = new HubConnectionBuilder().withUrl('http://localhost:5000/chat?telefoniId=' + telefoniId,{
+            this.hubConnection = new HubConnectionBuilder().withUrl(process.env.REACT_APP_CHAT_URL + '?telefoniId=' + telefoniId,{
                 accessTokenFactory: () => store.userStore.user?.token!
             })
             .withAutomaticReconnect()
