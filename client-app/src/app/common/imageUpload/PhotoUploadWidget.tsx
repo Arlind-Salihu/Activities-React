@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { Cropper } from 'react-cropper';
 import { Button, Grid, Header } from 'semantic-ui-react'
 import PhotoWidgetCropper from './PhotoWidgetCropper';
 import PhotoWidgetDropzone from './PhotoWidgetDropzone'

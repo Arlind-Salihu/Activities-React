@@ -1,5 +1,6 @@
 import { observer } from "mobx-react-lite";
-import React, { SyntheticEvent, useState } from "react";
+import * as React from "react";
+import {useState, SyntheticEvent}  from "react";
 import { Card, Header, Tab, Image, Grid, Button } from "semantic-ui-react";
 import PhotoUploadWidget from "../../app/common/imageUpload/PhotoUploadWidget";
 import { Photo, Profile } from "../../app/models/profile";
@@ -10,24 +11,22 @@ interface Props {
 }
 
 export default observer(function ProfilePhotos({ profile }: Props) {
-  const {
-    profileStore: { isCurrentUser, uploadPhoto, uploading, loading, setMainPhoto, deletePhoto},
-  } = useStore();
+  const { profileStore: { isCurrentUser, uploadPhoto, uploading, loading, setMainPhoto, deletePhoto } } = useStore();
   const [addPhotoMode, setAddPhotoMode] = useState(false);
   const [target, setTarget] = useState('');
 
   function handlePhotoUpload(file: Blob) {
-    uploadPhoto(file).then(() => setAddPhotoMode(false));
+      uploadPhoto(file).then(() => setAddPhotoMode(false));
   }
 
-  function handleSetMainPhoto(photo: Photo, e: SyntheticEvent<HTMLButtonElement>){
-    setTarget(e.currentTarget.name);
-    setMainPhoto(photo);
+  function handleSetMainPhoto(photo: Photo, e: SyntheticEvent<HTMLButtonElement>) {
+      setTarget(e.currentTarget.name);
+      setMainPhoto(photo);
   }
 
-  function handleDeletePhoto(photo: Photo, e: SyntheticEvent<HTMLButtonElement>){
-    setTarget(e.currentTarget.name);
-    deletePhoto(photo);
+  function handleDeletePhoto(photo: Photo, e: SyntheticEvent<HTMLButtonElement>) {
+      setTarget(e.currentTarget.name);
+      deletePhoto(photo);
   }
 
   return (
