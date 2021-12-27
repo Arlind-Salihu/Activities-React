@@ -22,38 +22,40 @@ axios.interceptors.request.use(config => {
 })
 
 axios.interceptors.response.use(async response => {
-    if(process.env.NODE_ENV === 'development') await sleep(1000);
+    if (process.env.NODE_ENV === 'development') await sleep(1000);
     const pagination = response.headers['pagination'];
-    if(pagination){
+    if (pagination) {
         response.data = new PaginatedResult(response.data, JSON.parse(pagination));
         return response as AxiosResponse<PaginatedResult<any>>
     }
     return response;
-},(error: AxiosError) =>{
-    const {data, status, config} = error.response!;
-    switch (status){
+}, (error: AxiosError) => {
+    const { data, status, config, headers } = error.response!;
+    switch (status) {
         case 400:
-            if(typeof data === 'string'){
-                toast.error(data);
-            }
-            if(config.method === 'get' && data.errors.hasOwnProperty('id')){
+            if (config.method === 'get' && data.errors.hasOwnProperty('id')) {
                 history.push('/not-found');
             }
-            if(data.errors){
+            if (data.errors) {
                 const modalStateErrors = [];
-                for (const key in data.errors){
-                    if(data.errors[key]){
+                for (const key in data.errors) {
+                    if (data.errors[key]) {
                         modalStateErrors.push(data.errors[key])
                     }
                 }
                 throw modalStateErrors.flat();
+            } else {
+                toast.error(data);
             }
             break;
         case 401:
-            toast.error('unauthorised');
+            if (status === 401 && headers['www-authenticate']?.startsWith('Bearer error="invalid_token"')) {
+                store.userStore.logout();
+                toast.error('Session expired - please login again');
+            }
             break;
         case 404:
-            history.push('/not-found')
+            history.push('/not-found');
             break;
         case 500:
             store.commonStore.setServerError(data);
@@ -85,7 +87,8 @@ const Account = {
     current: () => requests.get<User>('/account'),
     login: (user: UserFormValues) => requests.post<User>('/account/login', user),
     register: (user: UserFormValues) => requests.post<User>('/account/register', user),
-    fbLogin: (accessToken: string) => requests.post<User>(`/account/fbLogin?accessToken=${accessToken}`, {})
+    fbLogin: (accessToken: string) => requests.post<User>(`/account/fbLogin?accessToken=${accessToken}`, {}),
+    refreshToken: () => requests.post<User>('/account/refreshToken', {})
 }
 
 const Profiles = {
