@@ -5,7 +5,7 @@ import { Button, Container, Dropdown, Menu, Image} from "semantic-ui-react";
 import { useStore } from "../stores/store";
 
 export default observer (function NavBar() {
-  const {userStore: {user, logout}} = useStore();
+  const {userStore: {user, logout, isLoggedIn}} = useStore();
   return (
     <Menu inverted fixed="top">
       <Container>
@@ -15,6 +15,8 @@ export default observer (function NavBar() {
         </Menu.Item>
       </Container>
 
+      {isLoggedIn &&
+      <>
       <Menu.Item as={NavLink} to="/telefonat" name="Telefonat"/>
       <Button as={NavLink} to="/createTelefoni" style={{backgroundColor: "#AEB6BF"}} content="Krijo Telefonin"/>
       <Menu.Item position='right'>
@@ -26,6 +28,7 @@ export default observer (function NavBar() {
           </Dropdown.Menu> 
         </Dropdown>
       </Menu.Item>
+      </>}
       {/* <Menu.Item as={NavLink} to="/errors" name="Errors" /> */}
     </Menu>
   );
