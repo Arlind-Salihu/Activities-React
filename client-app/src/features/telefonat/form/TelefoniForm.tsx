@@ -53,20 +53,20 @@ export default observer(function TelefoniForm() {
     }
   }
 
-  if (loadingInitial) return <LoadingComponent content="Te dhenat e telefonit jane duke u hapur!"/>
+  if (loadingInitial) return <LoadingComponent content="Loading Product..."/>
 
   return (
     <Segment clearing>
-      <Header content={"Te Dhenat e Telefonit"} sub color='teal'/>
+      <Header content={"Product Form"} sub color='teal'/>
       <Formik validationSchema={validationSchema} enableReinitialize initialValues={telefoni} onSubmit={values => handleFormSubmit(values)}>
         {({ handleSubmit, isValid, isSubmitting, dirty }) => (
           <Form className='ui form' onSubmit={handleSubmit} autoComplete="off">
-            <MyTextInput name='emri' placeholder='Emri i Telefonit'/>
-            <MySelectInput options={categoryOptionsTelefonat} placeholder="Kategoria e Telefonit" name="kategoria"/>
-            <MyTextInput placeholder="Brendi i Telefonit" name="brendi"/>
-            <MyDateInput  placeholderText="Data" name="data" showTimeSelect timeCaption='time' dateFormat='d MMMM, yyyy h:mm aa'/>
-            <MyTextArea rows={3} placeholder="Pershkrimi i Telefonit" name="pershkrimi"/>
-            <MyTextInput placeholder="Cmimi i Telefonit" name="cmimi"/>
+            <MyTextInput name='emri' placeholder='Name'/>
+            <MySelectInput options={categoryOptionsTelefonat} placeholder="Category" name="kategoria"/>
+            <MyTextInput placeholder="Brand" name="brendi"/>
+            <MyDateInput  placeholderText="Date" name="data" showTimeSelect timeCaption='time' dateFormat='d MMMM, yyyy h:mm aa'/>
+            <MyTextArea rows={3} placeholder="Descripiton" name="pershkrimi"/>
+            <MyTextInput placeholder="Price" name="cmimi"/>
             <Button disabled={isSubmitting || !dirty || !isValid} loading={isSubmitting} floated="right" positive type="submit" content="Submit"/>
             <Button as={Link} to='/telefonat' floated="right" type="button" content="Cancel"/>
           </Form>

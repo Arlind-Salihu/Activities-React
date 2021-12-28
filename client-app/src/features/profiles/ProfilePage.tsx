@@ -20,7 +20,7 @@ export default observer (function ProfilePage (){
         }
     },[loadProfile, username, setActiveTab])
 
-    if(loadingProfile) return <LoadingComponent content='Te dhenat e profilit jane duke u hapur'/>
+    if(loadingProfile) return <LoadingComponent content='Loading Profile...'/>
 
     return (
         <Grid>

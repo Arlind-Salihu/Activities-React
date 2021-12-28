@@ -17,8 +17,8 @@ export default observer (function NavBar() {
 
       {isLoggedIn &&
       <>
-      <Menu.Item as={NavLink} to="/telefonat" name="Telefonat"/>
-      <Button as={NavLink} to="/createTelefoni" style={{backgroundColor: "#AEB6BF"}} content="Krijo Telefonin"/>
+      <Menu.Item as={NavLink} to="/telefonat" name="Products"/>
+      <Button as={NavLink} to="/createTelefoni" style={{backgroundColor: "#AEB6BF"}} content="Create Product"/>
       <Menu.Item position='right'>
         <Image src={user?.image || '/assets/user.png'} avatar spaced='right'/>
         <Dropdown pointing='top right' text={user?.displayName}>

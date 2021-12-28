@@ -12,7 +12,7 @@ export default observer (function TelefoniFilters () {
         <>
         <Menu vertical size='large' style={{width: '100%', marginTop: 28}}>
             <Header icon='filter' attached color='teal' content="Filters"/>
-            <Menu.Item content="Te gjithe Telefonat" active={predicate.has('all')} onClick={() => setPredicate('all', 'true')}/>
+            <Menu.Item content="All Products" active={predicate.has('all')} onClick={() => setPredicate('all', 'true')}/>
             <Menu.Item content="I am Interesed" active={predicate.has('isInteresed')} onClick={() => setPredicate('isInteresed', 'true')}/>
             <Menu.Item content="I am hosting" active={predicate.has('isHost')} onClick={() => setPredicate('isHost', 'true')}/>
         </Menu>

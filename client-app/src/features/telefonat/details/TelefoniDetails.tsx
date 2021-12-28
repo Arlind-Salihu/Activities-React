@@ -26,7 +26,7 @@ export default observer(function TelefoniDetails() {
 
   if (loadingInitial || !telefoni)
     return (
-      <LoadingComponent content={"Te dhenat e telefonit jane duke u hapur!"}/>
+      <LoadingComponent content={"Loading Product...!"}/>
     );
   return (
     <Grid>

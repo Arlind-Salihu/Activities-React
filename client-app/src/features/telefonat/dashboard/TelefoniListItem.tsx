@@ -26,14 +26,14 @@ export default function TelefoniListItem({ telefoni }: Props) {
               {telefoni.isHost && (
                 <Item.Description>
                   <Label basic color='orange'>
-                    Ju jeni Host per kete produkt
+                    You are the Host of this product
                   </Label>
                 </Item.Description>
               )}
               {telefoni.isInteresed && !telefoni.isHost && (
                 <Item.Description>
                   <Label basic color='green'>
-                    Ju jeni duke shikuar kete produkt
+                    You are interesed for this product
                   </Label>
                 </Item.Description>
               )}

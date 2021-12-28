@@ -59,7 +59,7 @@ export default observer(function TelefoniDetailedHeader({ telefoni }: Props) {
         {telefoni.isHost ? (
           <>
           <Button color={telefoni.isCancelled ? 'green' : 'red'} floated="left"
-            basic content={telefoni.isCancelled ? 'Re-Aktivizo Telefonin' : 'Cancel Telefonin'}
+            basic content={telefoni.isCancelled ? 'Re-Activate' : 'Cancel'}
             onClick={cancelTelefoniToggle} loading={loading}/>
           <Button
             disabled={telefoni.isCancelled}
@@ -68,14 +68,14 @@ export default observer(function TelefoniDetailedHeader({ telefoni }: Props) {
             color="orange"
             floated="right"
           >
-            Menaxho Telefonin
+            Manage Product
           </Button>
           </>
         ) : telefoni.isInteresed ? (
-          <Button loading={loading} onClick={updatePrezencen}>Anulo te shikuarit</Button>
+          <Button loading={loading} onClick={updatePrezencen}>I am not Interesed</Button>
         ) : (
           <Button disabled={telefoni.isCancelled} loading={loading}
-            onClick={updatePrezencen} color="teal">Shiko Telefonin
+            onClick={updatePrezencen} color="teal">I am Interesed
           </Button>
         )}
       </Segment>

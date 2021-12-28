@@ -20,7 +20,7 @@ export default observer(function TelefoniDetailedSidebar ({telefoni: {telefonatP
                 inverted
                 color='teal'
             >
-                {telefonatPrezencat.length} {telefonatPrezencat.length === 1 ? 'Person eshte' : 'Persona jane'} duke shikuar telefonin
+                {telefonatPrezencat.length} {telefonatPrezencat.length === 1 ? 'Person is' : 'Persons are'} interesed for this product!
             </Segment>
             <Segment attached>
                 <List relaxed divided>

@@ -12,11 +12,11 @@ export default observer (function LoginForm () {
         userStore.login(values).catch(error=> setErrors({error: error.response.data}))}>
             {({handleSubmit, isSubmitting, errors}) =>(
                 <Form className='ui form' onSubmit={handleSubmit} autoComplete='off'>
-                    <Header as='h2' content='Identifikohu ne Tech E-Commerce' color='teal' textAlign='center'/>
+                    <Header as='h2' content='Sign In' color='teal' textAlign='center'/>
                     <MyTextInput name='email' placeholder='Email'/>
                     <MyTextInput name='password' placeholder='Password' type='password'/>
                     <ErrorMessage name='error' render={() => <Label style={{marginBottom: 10}} basic color='red' content={errors.error}/>}/>
-                    <Button loading={isSubmitting} positive content='Login' type='submit' fluid/>
+                    <Button loading={isSubmitting} positive content='Sign in' type='submit' fluid/>
                 </Form>
             )}
         </Formik>
