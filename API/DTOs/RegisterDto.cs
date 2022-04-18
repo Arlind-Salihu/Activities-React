@@ -15,7 +15,7 @@ namespace API.DTOs
         public string Email { get; set; }
 
         [Required]
-        [RegularExpression("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,15}$", ErrorMessage = "Password must contain 8 characters: at least 1 uppercase character, 1 lowercase character and 1 number!")]
+        [RegularExpression("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,15}$", ErrorMessage = "Password must contain 8 characters: At least 1 uppercase character, 1 lowercase character and 1 number!")]
         public string Password { get; set; }
     }
 }
