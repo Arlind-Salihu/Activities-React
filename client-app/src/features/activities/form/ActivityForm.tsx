@@ -61,8 +61,8 @@ export default observer(function ActivityForm() {
         {({ handleSubmit, isValid, isSubmitting, dirty }) => (
           <Form className='ui form' onSubmit={handleSubmit} autoComplete="off">
             <MyTextInput name='emri' placeholder='Name'/>
-            <MySelectInput options={categoryOptionsActivities} placeholder="Category" name="kategoria"/>
-            <MyTextInput placeholder="Brand" name="brendi"/>
+            <MySelectInput options={categoryOptionsActivities} placeholder="Location" name="kategoria"/>
+            <MyTextInput placeholder="Section" name="brendi"/>
             <MyDateInput  placeholderText="Date" name="data" showTimeSelect timeCaption='time' dateFormat='d MMMM, yyyy h:mm aa'/>
             <MyTextArea rows={3} placeholder="Descripiton" name="pershkrimi"/>
             <Button disabled={isSubmitting || !dirty || !isValid} loading={isSubmitting} floated="right" positive type="submit" content="Submit"/>
