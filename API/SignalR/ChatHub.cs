@@ -17,16 +17,16 @@ namespace API.SignalR
         public async Task SendComment(Create.Command command){
             var comment = await _mediator.Send(command);
 
-            await Clients.Group(command.TelefoniId.ToString())
+            await Clients.Group(command.ActivityId.ToString())
                 .SendAsync("ReceiveComment", comment.Value);
         }
 
         public override async Task OnConnectedAsync(){
 
             var httpContext = Context.GetHttpContext();
-            var telefoniId = httpContext.Request.Query["telefoniId"];
-            await Groups.AddToGroupAsync(Context.ConnectionId, telefoniId);
-            var result = await _mediator.Send(new List.Query{TelefoniId = Guid.Parse(telefoniId)});
+            var activityId = httpContext.Request.Query["activityId"];
+            await Groups.AddToGroupAsync(Context.ConnectionId, activityId);
+            var result = await _mediator.Send(new List.Query{ActivityId = Guid.Parse(activityId)});
             await Clients.Caller.SendAsync("LoadComments", result.Value);
         }
     }

@@ -10,8 +10,8 @@ export default function NotFound (){
                 Oops - nuk gjetem ate qe po kerkoni!
             </Header>
             <Segment.Inline>
-                <Button as={Link} to='/telefonat' primary>
-                    Kthehu tek telefonat
+                <Button as={Link} to='/activities' primary>
+                    Go Back
                 </Button>
             </Segment.Inline>
         </Segment>

@@ -20,16 +20,13 @@ namespace Persistence.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63)
                 .HasAnnotation("ProductVersion", "5.0.2");
 
-            modelBuilder.Entity("Domain.Telefoni", b =>
+            modelBuilder.Entity("Domain.Activity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
                     b.Property<string>("Brendi")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Cmimi")
                         .HasColumnType("text");
 
                     b.Property<DateTime>("Data")
@@ -49,25 +46,25 @@ namespace Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Telefonat");
+                    b.ToTable("Activities");
                 });
 
-            modelBuilder.Entity("Domain.TelefonatPrezenca", b =>
+            modelBuilder.Entity("Domain.ActivitiesPrezenca", b =>
                 {
                     b.Property<string>("AppUserId")
                         .HasColumnType("text");
 
-                    b.Property<Guid>("TelefoniId")
+                    b.Property<Guid>("ActivityId")
                         .HasColumnType("uuid");
 
                     b.Property<bool>("IsHost")
                         .HasColumnType("boolean");
 
-                    b.HasKey("AppUserId", "TelefoniId");
+                    b.HasKey("AppUserId", "ActivityId");
 
-                    b.HasIndex("TelefoniId");
+                    b.HasIndex("ActivityId");
 
-                    b.ToTable("TelefonatPrezencat");
+                    b.ToTable("ActivitiesPrezencat");
                 });
 
             modelBuilder.Entity("Domain.AppUser", b =>
@@ -147,7 +144,7 @@ namespace Persistence.Migrations
                         .HasColumnType("integer")
                         .UseIdentityByDefaultColumn();
 
-                    b.Property<Guid?>("TelefoniId")
+                    b.Property<Guid?>("ActivityId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("AuthorId")
@@ -161,7 +158,7 @@ namespace Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TelefoniId");
+                    b.HasIndex("ActivityId");
 
                     b.HasIndex("AuthorId");
 
@@ -360,37 +357,37 @@ namespace Persistence.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Domain.TelefonatPrezenca", b =>
+            modelBuilder.Entity("Domain.ActivitiesPrezenca", b =>
                 {
-                    b.HasOne("Domain.Telefoni", "Telefoni")
-                        .WithMany("TelefonatPrezencat")
-                        .HasForeignKey("TelefoniId")
+                    b.HasOne("Domain.Activity", "Activity")
+                        .WithMany("ActivitiesPrezencat")
+                        .HasForeignKey("ActivityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Domain.AppUser", "AppUser")
-                        .WithMany("Telefonat")
+                        .WithMany("Activities")
                         .HasForeignKey("AppUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Telefoni");
+                    b.Navigation("Activity");
 
                     b.Navigation("AppUser");
                 });
 
             modelBuilder.Entity("Domain.Comment", b =>
                 {
-                    b.HasOne("Domain.Telefoni", "Telefoni")
+                    b.HasOne("Domain.Activity", "Activity")
                         .WithMany("Comments")
-                        .HasForeignKey("TelefoniId")
+                        .HasForeignKey("ActivityId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Domain.AppUser", "Author")
                         .WithMany()
                         .HasForeignKey("AuthorId");
 
-                    b.Navigation("Telefoni");
+                    b.Navigation("Activity");
 
                     b.Navigation("Author");
                 });
@@ -481,16 +478,16 @@ namespace Persistence.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Domain.Telefoni", b =>
+            modelBuilder.Entity("Domain.Activity", b =>
                 {
-                    b.Navigation("TelefonatPrezencat");
+                    b.Navigation("ActivitiesPrezencat");
 
                     b.Navigation("Comments");
                 });
 
             modelBuilder.Entity("Domain.AppUser", b =>
                 {
-                    b.Navigation("Telefonat");
+                    b.Navigation("Activities");
 
                     b.Navigation("Followers");
 

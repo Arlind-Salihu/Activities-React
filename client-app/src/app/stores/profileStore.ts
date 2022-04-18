@@ -1,6 +1,6 @@
 import { makeAutoObservable, reaction, runInAction } from "mobx";
 import agent from "../api/agent";
-import { Photo, Profile, UserTelefoni } from "../models/profile";
+import { Photo, Profile, UserActivity } from "../models/profile";
 import { store } from "./store";
 
 export default class ProfileStore {
@@ -11,8 +11,8 @@ export default class ProfileStore {
     followings: Profile[] = [];
     loadingFollowings: boolean = false;
     activeTab = 0;
-    userTelefonat: UserTelefoni[] = [];
-    loadingTelefonat = false;
+    userActivities: UserActivity[] = [];
+    loadingActivities = false;
 
     constructor() {
         makeAutoObservable(this);
@@ -132,7 +132,7 @@ export default class ProfileStore {
         this.loading = true;
         try {
             await agent.Profiles.updateFollowing(username);
-            store.telefoniStore.updatePrezencaFollowing(username);
+            store.activityStore.updatePrezencaFollowing(username);
             runInAction(() => {
                 if (this.profile && this.profile.username !== store.userStore.user?.username && this.profile.username === username) {
                     following ? this.profile.followersCount++ : this.profile.followersCount--;
@@ -171,19 +171,19 @@ export default class ProfileStore {
         }
     }
 
-    loadUserTelefonat = async (username: string, predicate?: string) => {
-        this.loadingTelefonat = true;
+    loadUserActivities = async (username: string, predicate?: string) => {
+        this.loadingActivities = true;
         try {
-        const telefonat = await agent.Profiles.listTelefonat(username,
+        const activities = await agent.Profiles.listActivities(username,
         predicate!);
         runInAction(() => {
-        this.userTelefonat = telefonat;
-        this.loadingTelefonat = false;
+        this.userActivities = activities;
+        this.loadingActivities = false;
         })
         } catch (error) {
         console.log(error);
         runInAction(() => {
-        this.loadingTelefonat = false;
+        this.loadingActivities = false;
         })
         }
         }

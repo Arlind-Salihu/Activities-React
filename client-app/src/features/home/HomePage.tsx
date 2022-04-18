@@ -19,7 +19,7 @@ export default observer(function HomePage () {
                {userStore.isLoggedIn ? (
                    <>
                    <Header as='h2' inverted content='Welcome to Tech E-Commerce!'/>
-                   <Button as={Link} to="/telefonat" size='huge' inverted>Go to Products!</Button>
+                   <Button as={Link} to="/activities" size='huge' inverted>Go to Activities!</Button>
                    </>
                ): (
                    <>

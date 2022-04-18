@@ -1,7 +1,7 @@
 using System.Linq;
 using Application.Comments;
 using Application.Profiles;
-using Application.Telefonat;
+using Application.Activities;
 using AutoMapper;
 using Domain;
 
@@ -12,13 +12,13 @@ namespace Application.Core
         public MappingProfiles()
         {
             string currentUsername = null;
-            CreateMap<Telefoni, Telefoni>();
+            CreateMap<Activity, Activity>();
 
-            CreateMap<Telefoni, TelefoniDto>()
-            .ForMember(d => d.HostUsername, o => o.MapFrom(s => s.TelefonatPrezencat
+            CreateMap<Activity, ActivityDto>()
+            .ForMember(d => d.HostUsername, o => o.MapFrom(s => s.ActivitiesPrezencat
             .FirstOrDefault(x => x.isHost).AppUser.UserName));
 
-            CreateMap<TelefonatPrezenca, PrezencaDto>()
+            CreateMap<ActivitiesPrezenca, PrezencaDto>()
             .ForMember(d => d.DisplayName, o => o.MapFrom(s => s.AppUser.DisplayName))
             .ForMember(d => d.Username, o => o.MapFrom(s => s.AppUser.UserName))
             .ForMember(d => d.Bio, o => o.MapFrom(s => s.AppUser.Bio))
@@ -36,12 +36,12 @@ namespace Application.Core
             .ForMember(d => d.Username, o => o.MapFrom(s => s.Author.UserName))
             .ForMember(d => d.Image, o => o.MapFrom(s => s.Author.Photos.FirstOrDefault(x => x.IsMain).Url));
 
-            CreateMap<TelefonatPrezenca, UserTelefoniDto>()
-            .ForMember(d => d.Id, o => o.MapFrom(s => s.Telefoni.Id))
-            .ForMember(d => d.Emri, o => o.MapFrom(s => s.Telefoni.Emri))
-            .ForMember(d => d.Kategoria, o => o.MapFrom(s => s.Telefoni.Kategoria))
-            .ForMember(d => d.Data, o => o.MapFrom(s => s.Telefoni.Data))
-            .ForMember(d => d.HostUsername, o => o.MapFrom(s => s.Telefoni.TelefonatPrezencat.FirstOrDefault(x => x.isHost).AppUser.UserName));
+            CreateMap<ActivitiesPrezenca, UserActivityDto>()
+            .ForMember(d => d.Id, o => o.MapFrom(s => s.Activity.Id))
+            .ForMember(d => d.Emri, o => o.MapFrom(s => s.Activity.Emri))
+            .ForMember(d => d.Kategoria, o => o.MapFrom(s => s.Activity.Kategoria))
+            .ForMember(d => d.Data, o => o.MapFrom(s => s.Activity.Data))
+            .ForMember(d => d.HostUsername, o => o.MapFrom(s => s.Activity.ActivitiesPrezencat.FirstOrDefault(x => x.isHost).AppUser.UserName));
         }
     }
 }

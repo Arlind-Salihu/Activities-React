@@ -44,7 +44,7 @@ namespace API
             })
             .AddFluentValidation(config =>
             {
-                config.RegisterValidatorsFromAssemblyContaining<Application.Telefonat.Create>();
+                config.RegisterValidatorsFromAssemblyContaining<Application.Activities.Create>();
             });
            
             services.AddApplicationServices(_config);

@@ -9,8 +9,8 @@ namespace Persistence
         public DataContext(DbContextOptions options) : base(options)
         {
         }
-        public DbSet<Telefoni> Telefonat { get; set; }
-        public DbSet<TelefonatPrezenca> TelefonatPrezencas { get; set; }
+        public DbSet<Activity> Activities { get; set; }
+        public DbSet<ActivitiesPrezenca> ActivitiesPrezencas { get; set; }
         public DbSet<Photo> Photos { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<UserFollowing> UserFollowings { get; set; }
@@ -18,20 +18,20 @@ namespace Persistence
         {
             base.OnModelCreating(builder);
 
-            builder.Entity<TelefonatPrezenca>(x => x.HasKey(aa => new { aa.AppUserId, aa.TelefoniId }));            
+            builder.Entity<ActivitiesPrezenca>(x => x.HasKey(aa => new { aa.AppUserId, aa.ActivityId }));            
 
-            builder.Entity<TelefonatPrezenca>()
+            builder.Entity<ActivitiesPrezenca>()
             .HasOne(u => u.AppUser)
-            .WithMany(a => a.Telefonat)
+            .WithMany(a => a.Activities)
             .HasForeignKey(aa => aa.AppUserId);
 
-             builder.Entity<TelefonatPrezenca>()
-            .HasOne(u => u.Telefoni)
-            .WithMany(a => a.TelefonatPrezencat)
-            .HasForeignKey(aa => aa.TelefoniId);
+             builder.Entity<ActivitiesPrezenca>()
+            .HasOne(u => u.Activity)
+            .WithMany(a => a.ActivitiesPrezencat)
+            .HasForeignKey(aa => aa.ActivityId);
 
             builder.Entity<Comment>()
-            .HasOne(a => a.Telefoni)
+            .HasOne(a => a.Activity)
             .WithMany(c => c.Comments)
             .OnDelete(DeleteBehavior.Cascade);
 

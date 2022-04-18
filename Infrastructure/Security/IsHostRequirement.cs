@@ -30,11 +30,11 @@ namespace Infrastructure.Security
 
             if(userId == null) return Task.CompletedTask;
 
-            var telefoniId = Guid.Parse(_httpContextAccessor.HttpContext?.Request.RouteValues.SingleOrDefault(x => x.Key == "id").Value?.ToString());
+            var activityId = Guid.Parse(_httpContextAccessor.HttpContext?.Request.RouteValues.SingleOrDefault(x => x.Key == "id").Value?.ToString());
 
-            var prezenca = _dbContext.TelefonatPrezencas
+            var prezenca = _dbContext.ActivitiesPrezencas
             .AsNoTracking()
-            .SingleOrDefaultAsync(x => x.AppUserId == userId && x.TelefoniId == telefoniId).Result;
+            .SingleOrDefaultAsync(x => x.AppUserId == userId && x.ActivityId == activityId).Result;
 
             if (prezenca == null) return Task.CompletedTask;
 

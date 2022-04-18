@@ -11,9 +11,9 @@ export default class CommentStore{
         makeAutoObservable(this);
     }
 
-    createHubConnection = (telefoniId: string) => {
-        if(store.telefoniStore.selectedTelefoni){
-            this.hubConnection = new HubConnectionBuilder().withUrl(process.env.REACT_APP_CHAT_URL + '?telefoniId=' + telefoniId,{
+    createHubConnection = (activityId: string) => {
+        if(store.activityStore.selectedActivity){
+            this.hubConnection = new HubConnectionBuilder().withUrl(process.env.REACT_APP_CHAT_URL + '?activityId=' + activityId,{
                 accessTokenFactory: () => store.userStore.user?.token!
             })
             .withAutomaticReconnect()
@@ -49,7 +49,7 @@ export default class CommentStore{
     }
 
     addComment = async (values: any) => {
-        values.telefoniId = store.telefoniStore.selectedTelefoni?.id;
+        values.activityId = store.activityStore.selectedActivity?.id;
         try {
             await this.hubConnection?.invoke('SendComment', values);
         } catch (error) {

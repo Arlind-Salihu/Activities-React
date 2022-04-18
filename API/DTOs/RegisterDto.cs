@@ -15,7 +15,7 @@ namespace API.DTOs
         public string Email { get; set; }
 
         [Required]
-        [RegularExpression("(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$", ErrorMessage = "Fjalëkalimi duhet të përmbajë së paku: 1 shkronjë të madhe, 1 shkronjë të vogël dhe 1 numër!")]
+        [RegularExpression("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,15}$", ErrorMessage = "Fjalëkalimi duhet të përmbajë së paku: 1 shkronjë të madhe, 1 shkronjë të vogël dhe 1 numër!")]
         public string Password { get; set; }
     }
 }

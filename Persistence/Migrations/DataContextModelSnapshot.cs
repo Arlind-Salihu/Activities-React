@@ -105,14 +105,14 @@ namespace Persistence.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<Guid?>("TelefoniId")
+                    b.Property<Guid?>("ActivityId")
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
                     b.HasIndex("AuthorId");
 
-                    b.HasIndex("TelefoniId");
+                    b.HasIndex("ActivityId");
 
                     b.ToTable("Comments");
                 });
@@ -138,25 +138,25 @@ namespace Persistence.Migrations
                     b.ToTable("Photos");
                 });
 
-            modelBuilder.Entity("Domain.TelefonatPrezenca", b =>
+            modelBuilder.Entity("Domain.ActivitiesPrezenca", b =>
                 {
                     b.Property<string>("AppUserId")
                         .HasColumnType("text");
 
-                    b.Property<Guid>("TelefoniId")
+                    b.Property<Guid>("ActivityId")
                         .HasColumnType("uuid");
 
                     b.Property<bool>("isHost")
                         .HasColumnType("boolean");
 
-                    b.HasKey("AppUserId", "TelefoniId");
+                    b.HasKey("AppUserId", "ActivityId");
 
-                    b.HasIndex("TelefoniId");
+                    b.HasIndex("ActivityId");
 
-                    b.ToTable("TelefonatPrezencas");
+                    b.ToTable("ActivitiesPrezencas");
                 });
 
-            modelBuilder.Entity("Domain.Telefoni", b =>
+            modelBuilder.Entity("Domain.Activity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -164,10 +164,7 @@ namespace Persistence.Migrations
 
                     b.Property<string>("Brendi")
                         .HasColumnType("text");
-
-                    b.Property<decimal>("Cmimi")
-                        .HasColumnType("numeric");
-
+                        
                     b.Property<DateTime>("Data")
                         .HasColumnType("timestamp without time zone");
 
@@ -185,7 +182,7 @@ namespace Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Telefonat");
+                    b.ToTable("Activities");
                 });
 
             modelBuilder.Entity("Domain.UserFollowing", b =>
@@ -339,14 +336,14 @@ namespace Persistence.Migrations
                         .WithMany()
                         .HasForeignKey("AuthorId");
 
-                    b.HasOne("Domain.Telefoni", "Telefoni")
+                    b.HasOne("Domain.Activity", "Activity")
                         .WithMany("Comments")
-                        .HasForeignKey("TelefoniId")
+                        .HasForeignKey("ActivityId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Author");
 
-                    b.Navigation("Telefoni");
+                    b.Navigation("Activity");
                 });
 
             modelBuilder.Entity("Domain.Photo", b =>
@@ -356,23 +353,23 @@ namespace Persistence.Migrations
                         .HasForeignKey("AppUserId");
                 });
 
-            modelBuilder.Entity("Domain.TelefonatPrezenca", b =>
+            modelBuilder.Entity("Domain.ActivitiesPrezenca", b =>
                 {
                     b.HasOne("Domain.AppUser", "AppUser")
-                        .WithMany("Telefonat")
+                        .WithMany("Activities")
                         .HasForeignKey("AppUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Telefoni", "Telefoni")
-                        .WithMany("TelefonatPrezencat")
-                        .HasForeignKey("TelefoniId")
+                    b.HasOne("Domain.Activity", "Activity")
+                        .WithMany("ActivitiesPrezencat")
+                        .HasForeignKey("ActivityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("AppUser");
 
-                    b.Navigation("Telefoni");
+                    b.Navigation("Activity");
                 });
 
             modelBuilder.Entity("Domain.UserFollowing", b =>
@@ -453,14 +450,14 @@ namespace Persistence.Migrations
 
                     b.Navigation("Photos");
 
-                    b.Navigation("Telefonat");
+                    b.Navigation("Activities");
                 });
 
-            modelBuilder.Entity("Domain.Telefoni", b =>
+            modelBuilder.Entity("Domain.Activity", b =>
                 {
                     b.Navigation("Comments");
 
-                    b.Navigation("TelefonatPrezencat");
+                    b.Navigation("ActivitiesPrezencat");
                 });
 #pragma warning restore 612, 618
         }

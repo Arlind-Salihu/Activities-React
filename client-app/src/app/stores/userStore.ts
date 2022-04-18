@@ -24,7 +24,7 @@ export default class UserStore{
             store.commonStore.setToken(user.token);
             this.startRefreshTokenTimer(user);
             runInAction(() => this.user = user);
-            history.push('/telefonat');
+            history.push('/activities');
             store.modalStore.closeModal();
         } catch (error){
             throw error;
@@ -85,7 +85,7 @@ export default class UserStore{
                     this.user = user;
                     this.fbLoading = false;
                 })
-                history.push('/telefonat')
+                history.push('/activities')
             }).catch(error => {
                 console.log(error);
                 runInAction(() => this.fbLoading = false);

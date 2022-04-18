@@ -1,10 +1,10 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { toast } from "react-toastify";
 import { history } from "../..";
-import { Telefoni, TelefoniFormValues } from "../models/telefoni";
+import { Activity, ActivityFormValues } from "../models/activity";
 import { store } from "../stores/store";
 import { User, UserFormValues } from "../models/user";
-import { Photo, Profile, UserTelefoni } from "../models/profile";
+import { Photo, Profile, UserActivity } from "../models/profile";
 import { PaginatedResult } from "../models/pagination";
 
 const sleep = (delay: number) => {
@@ -74,13 +74,13 @@ const requests = {
     del: <T>(url: string) => axios.delete<T>(url).then(responseBody),
 }
 
-const Telefonat = {
-    list: (params: URLSearchParams) => axios.get<PaginatedResult<Telefoni[]>>('/telefonat', {params}).then(responseBody),
-    details: (id: string) => requests.get<Telefoni>(`/telefonat/${id}`),
-    create: (telefoni: TelefoniFormValues) => requests.post<void>('/telefonat', telefoni),
-    update: (telefoni: TelefoniFormValues) => requests.put<void>(`/telefonat/${telefoni.id}`, telefoni),
-    delete: (id: string) => requests.del<void>(`/telefonat/${id}`),
-    telefoniPrezent: (id: string) => requests.post<void>(`/telefonat/${id}/attend`,{})
+const Activities = {
+    list: (params: URLSearchParams) => axios.get<PaginatedResult<Activity[]>>('/activities', {params}).then(responseBody),
+    details: (id: string) => requests.get<Activity>(`/activities/${id}`),
+    create: (activity: ActivityFormValues) => requests.post<void>('/activities', activity),
+    update: (activity: ActivityFormValues) => requests.put<void>(`/activities/${activity.id}`, activity),
+    delete: (id: string) => requests.del<void>(`/activities/${id}`),
+    activityPrezent: (id: string) => requests.post<void>(`/activities/${id}/attend`,{})
 }
 
 const Account = {
@@ -107,11 +107,11 @@ const Profiles = {
     updateProfile: (profile: Partial<Profile>) => requests.put(`/profiles`, profile),
     updateFollowing: (username: string) => requests.post(`/follow/${username}`, {}),
     listFollowings: (username: string, predicate: string) => requests.get<Profile[]>(`/follow/${username}?predicate=${predicate}`),
-    listTelefonat: (username: string, predicate: string) => requests.get<UserTelefoni[]>(`/profiles/${username}/telefonat?predicate=${predicate}`)
+    listActivities: (username: string, predicate: string) => requests.get<UserActivity[]>(`/profiles/${username}/activities?predicate=${predicate}`)
 }
 
 const agent = {
-    Telefonat, Account, Profiles
+    Activities, Account, Profiles
 }
 
 export default agent;

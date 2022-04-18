@@ -50,7 +50,7 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Telefonat",
+                name: "Activities",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -59,12 +59,11 @@ namespace Persistence.Migrations
                     Brendi = table.Column<string>(type: "text", nullable: true),
                     Data = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     Pershkrimi = table.Column<string>(type: "text", nullable: true),
-                    Cmimi = table.Column<decimal>(type: "numeric", nullable: false),
                     IsCancelled = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Telefonat", x => x.Id);
+                    table.PrimaryKey("PK_Activities", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -225,7 +224,7 @@ namespace Persistence.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Body = table.Column<string>(type: "text", nullable: true),
                     AuthorId = table.Column<string>(type: "text", nullable: true),
-                    TelefoniId = table.Column<Guid>(type: "uuid", nullable: true),
+                    ActivityId = table.Column<Guid>(type: "uuid", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
                 constraints: table =>
@@ -238,34 +237,34 @@ namespace Persistence.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Comments_Telefonat_TelefoniId",
-                        column: x => x.TelefoniId,
-                        principalTable: "Telefonat",
+                        name: "FK_Comments_Activities_ActivityId",
+                        column: x => x.ActivityId,
+                        principalTable: "Activities",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "TelefonatPrezencas",
+                name: "ActivitiesPrezencas",
                 columns: table => new
                 {
                     AppUserId = table.Column<string>(type: "text", nullable: false),
-                    TelefoniId = table.Column<Guid>(type: "uuid", nullable: false),
+                    ActivityId = table.Column<Guid>(type: "uuid", nullable: false),
                     isHost = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TelefonatPrezencas", x => new { x.AppUserId, x.TelefoniId });
+                    table.PrimaryKey("PK_ActivitiesPrezencas", x => new { x.AppUserId, x.ActivityId });
                     table.ForeignKey(
-                        name: "FK_TelefonatPrezencas_AspNetUsers_AppUserId",
+                        name: "FK_ActivitiesPrezencas_AspNetUsers_AppUserId",
                         column: x => x.AppUserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_TelefonatPrezencas_Telefonat_TelefoniId",
-                        column: x => x.TelefoniId,
-                        principalTable: "Telefonat",
+                        name: "FK_ActivitiesPrezencas_Activities_ActivityId",
+                        column: x => x.ActivityId,
+                        principalTable: "Activities",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -313,9 +312,9 @@ namespace Persistence.Migrations
                 column: "AuthorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comments_TelefoniId",
+                name: "IX_Comments_ActivityId",
                 table: "Comments",
-                column: "TelefoniId");
+                column: "ActivityId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Photos_AppUserId",
@@ -323,9 +322,9 @@ namespace Persistence.Migrations
                 column: "AppUserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TelefonatPrezencas_TelefoniId",
-                table: "TelefonatPrezencas",
-                column: "TelefoniId");
+                name: "IX_ActivitiesPrezencas_ActivityId",
+                table: "ActivitiesPrezencas",
+                column: "ActivityId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserFollowings_TargetId",
@@ -357,7 +356,7 @@ namespace Persistence.Migrations
                 name: "Photos");
 
             migrationBuilder.DropTable(
-                name: "TelefonatPrezencas");
+                name: "ActivitiesPrezencas");
 
             migrationBuilder.DropTable(
                 name: "UserFollowings");
@@ -366,7 +365,7 @@ namespace Persistence.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "Telefonat");
+                name: "Activities");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

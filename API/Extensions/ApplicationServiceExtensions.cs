@@ -1,7 +1,7 @@
 using System;
 using Application.Core;
 using Application.Interfaces;
-using Application.Telefonat;
+using Application.Activities;
 using AutoMapper;
 using Infrastructure.Email;
 using Infrastructure.Photos;

@@ -12,10 +12,10 @@ import HomePage from "../../features/home/HomePage";
 //Profile
 import ProfilePage from "../../features/profiles/ProfilePage";
 
-//Telefonat
-import TelefoniDashboard from "../../features/telefonat/dashboard/TelefoniDashboard";
-import TelefoniDetails from "../../features/telefonat/details/TelefoniDetails";
-import TelefoniForm from "../../features/telefonat/form/TelefoniForm";
+//Activities
+import ActivityDashboard from "../../features/activities/dashboard/ActivityDashboard";
+import ActivityDetails from "../../features/activities/details/ActivityDetails";
+import ActivityForm from "../../features/activities/form/ActivityForm";
 
 //Errors
 import TestErrors from "../../features/errors/TestError";
@@ -56,9 +56,9 @@ function App() {
             <NavBar />
             <Container style={{ marginTop: "7em" }}>
               <Switch>
-                <PrivateRoute exact path="/telefonat" component={TelefoniDashboard}/>
-                <PrivateRoute path="/telefonat/:id" component={TelefoniDetails}/>
-                <PrivateRoute key={location.key} path={["/createTelefoni", "/manage/:id"]} component={TelefoniForm}/>
+                <PrivateRoute exact path="/activities" component={ActivityDashboard}/>
+                <PrivateRoute path="/activities/:id" component={ActivityDetails}/>
+                <PrivateRoute key={location.key} path={["/createActivity", "/manage/:id"]} component={ActivityForm}/>
                 <PrivateRoute path="/profiles/:username" component={ProfilePage}/>
                 <PrivateRoute path="/errors" component={TestErrors} />
                 

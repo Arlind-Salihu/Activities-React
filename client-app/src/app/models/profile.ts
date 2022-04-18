@@ -24,7 +24,7 @@ export interface Photo{
     isMain: boolean;
 }
 
-export interface UserTelefoni {
+export interface UserActivity {
     id: string;
     emri: string;
     kategoria: string;
